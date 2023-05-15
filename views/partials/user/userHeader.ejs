@@ -1,0 +1,111 @@
+<body>
+    <div class="hero_area">
+       <!-- header section strats -->
+       <header class="header_section" style="border-bottom: 1px solid black;">
+          <div class="container">
+             <nav class="navbar navbar-expand-lg custom_nav-container " >
+                <a class="navbar-brand" href="/"><img width="200" height="90" src="/images/logo.png" alt="#" /></a>
+<br>
+<div>
+<a href="#" onclick="window.history.back(); return false;">
+   <img style="width: 20px; text-decoration: none;" src="https://img.icons8.com/ios-filled/50/null/back.png" alt="Go back" />
+ </a>
+ <a href="#" onclick="window.history.forward(); return false;">
+   <img style="width: 20px;" src="https://img.icons8.com/ios-filled/50/null/forward.png" alt="Go forward" />
+ </a>
+</div>
+ 
+ 
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                   <ul class="navbar-nav">
+                      <li id="home-menu-item" class="nav-item ">
+                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                      </li>
+<!--                     
+                      <li id="products-menu-item" class="nav-item">
+                         <a class="nav-link" href="/product">Products</a>
+                      </li> -->
+                      <li id="products-menu-item" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Products <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                           <li><a href="/productMen?page=1" style="text-decoration: none;">Men</a></li>
+                           <!-- <li><a href="/productWomen">Women</a></li> -->
+                        </ul>
+                     </li>
+                      <li id="blog-menu-item" class="nav-item">
+                         <a class="nav-link" href="/blogList">Blog</a>
+                      </li>
+                      <li id="contact-menu-item" class="nav-item">
+                         <a class="nav-link" href="/contact">Contact</a>
+                      </li>
+                      <li id="about-menu-item" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                           <li><a href="/about">About</a></li>
+                           <li><a href="/testimonial">Testimonial</a></li>
+                        </ul>
+                     </li>
+                      <li id="about-menu-item" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                          
+                            
+                           <% if (locals.userloggedIn) { %>
+                              <span class="nav-label"><%=locals.username  %> <span class="caret"></span></span>
+                              <% } else { %>
+                                 <span class="nav-label">Account <span class="caret"></span></span>
+
+                                 <% } %>
+                             
+                           
+                        </a>
+                        <ul class="dropdown-menu">
+                            <% if (locals.userloggedIn) { %>
+                              <li class="dropdown-item"><a href="/logout">Logout</a></li>
+
+                            <% } else { %>
+                              <li class="dropdown-item"><a href="/login">Login</a></li>
+
+                            <% } %>
+                        </ul>
+                    </li>
+                    
+                      <form class="form-inline">
+                        <a href="/shoppingCart">
+                        
+                           <i class="fa fa-shopping-cart nav_search-btn" aria-hidden="true">
+                             <% if (locals.userloggedIn) { %>
+                              <span style="    padding-left: 4.5px;padding-top: 1.5px;
+                              /* justify-content: center; */
+                              display: inline-block;
+                              /* width: 10px; */
+                              font-size: 12px;
+                              border-radius: 43px;
+                              border: none;
+                              width: 15px;
+                              height: 15px;
+                              background-color: #f7444e;
+                              top: -24px;
+                              color: white;
+                              font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                              position: relative;
+                              left: 12px;" class="" id="cartCount"><%=locals.cartCount%> </span>
+                             
+                             <% } else { %>
+                             
+                               <% } %>
+                             </i>
+                           
+                        </a>
+                        
+                         <i class="fa fa-search nav_search-btn" aria-hidden="true"></i>
+                        
+                         
+                      </form>
+                     
+                   </ul>
+                </div>
+             </nav>
+          </div>
+       </header>
+       <!-- end header section -->

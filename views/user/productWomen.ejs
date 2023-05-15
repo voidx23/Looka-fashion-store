@@ -1,0 +1,109 @@
+<!-- inner page section -->
+<section class="inner_page_head">
+  <div class="container_fuild">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="full">
+          <h3>Women</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end inner page section -->
+<!-- product section -->
+<section class="product_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Our <span>products</span></h2>
+    </div>
+    <div class="row" id=" product-grid">
+      <% if (products.gender == 'Women') { %>
+      <% for (let i=0;i<products.length;i++){%>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="box">
+          <div class="option_container">
+            <div class="options">
+              <a href="user/productDetail" class="option1"> View Product </a>
+              <a href="" class="option2"> Buy Now </a>
+            </div>
+          </div>
+          <div class="img-box">
+            <img src="/uploads/<%= products[i].images[0]%>" alt="" />
+          </div>
+         
+            <p style="font-size: 13px; position: relative"><%= products[i].name%></p>
+           
+            <h5 style="margin-top: 5px">₹<%= products[i].price%></h5>
+         
+        </div>
+      </div>
+      <% } %>
+      <% } %>
+    </div>
+    <div class="btn-box">
+      <div class="d-flex" id="pagination-demo"></div>
+    </div>
+  </div>
+</section>
+<!-- end product section -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.solodev.com/assets/pagination/jquery.twbsPagination.js"></script>
+<script>
+  $("#pagination-demo").twbsPagination({
+    totalPages: 3,
+    // the current page that show on start
+    startPage: 1,
+
+    // maximum visible pages
+    visiblePages: 3,
+
+    initiateStartPageClick: true,
+
+    // template for pagination links
+    href: false,
+
+    // variable name in href template for page number
+    hrefVariable: "{{number}}",
+
+    // Text labels
+    first: "First",
+    prev: "Prev",
+    next: "Next",
+    last: "Last",
+
+    // carousel-style pagination
+    loop: false,
+
+    // callback function
+    onPageClick: function (event, page) {
+      $(".page-active").removeClass("page-active");
+      $("#page" + page).addClass("page-active");
+    },
+
+    // pagination Classes
+    paginationClass: "pagination d-flex",
+    nextClass: "next",
+    prevClass: "prev",
+    lastClass: "last",
+    firstClass: "first",
+    pageClass: "page",
+    activeClass: "active",
+    disabledClass: "disabled",
+  });
+  $(".page").css({
+    margin: "0 5px",
+    cursor: "pointer",
+    padding: "5px",
+    backgroundColor: "#f8f8f8",
+    border: "1px solid #ddd",
+    borderRadius: "3px",
+  });
+
+  $(".page.active").css({
+    fontWeight: "bold",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    borderColor: "#007bff",
+  });
+</script>

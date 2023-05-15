@@ -1,0 +1,132 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for the product detail page */
+.product-detail-container {
+  max-width: 350px;
+  width:30vw ;
+  height: 38vw;
+  margin-left: 8vw;
+  margin-bottom: 3vw;
+  padding: 1vw;
+  /* box-shadow:  3px 3px rgba(134, 133, 129, 0.158); */
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgb(222, 222, 222);
+
+}
+
+/* Product image carousel */
+.product-image-carousel {
+  max-width: 100%;
+  height: 30vw;
+}
+
+/* Product details */
+.product-details {
+  margin-top: 20px;
+  /* position: relative; */
+  margin: 2vw;
+}
+
+.product-title {
+  font-size: 2vw;
+  font-weight: bold;
+  margin: 0;
+}
+
+.product-description {
+  font-size: 1.2vw;
+  margin-top: 10px;
+}
+
+.product-price {
+  font-size: 2vw;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Add to cart button */
+.add-to-cart-button {
+  display: block;
+  width: 9vw;
+  padding: 1vw;
+  background-color: #e67104;
+  color: #fff;
+  font-size: 1vw;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1vw;
+  margin-left: 0.8vw;
+  border: none;
+  height: 3vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  
+}
+.buy-now-button {
+  display: block;
+  width: 9vw;
+  padding: 1vw;
+  background-color: #2e610a;
+  color: #fff;
+  font-size: 1vw;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1vw;
+  margin-left: 0.8vw;
+  border: none;
+  height: 3vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  
+}
+.maindiv{
+  display: flex;
+}
+.btn{
+  display: flex;
+}
+.quantityBtn{
+  width: 9vw;
+  margin-top: 10vw;
+  display: flex;
+}
+.incBtn{
+    height: 4vw;
+    width: 4vw;
+    /* display: flex;  */
+    justify-content: center; 
+    align-items: center;
+}
+
+.decBtn{
+    height: 4vw; 
+    width: 4vw; 
+    /* display: flex;  */
+    justify-content: center; 
+    align-items: center;
+}
+.input-group{
+    width:12vw;
+    flex-wrap:nowrap
+}
+
+  
+
+
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  .product-details {
+    text-align: center;
+  }
+
+  
+}
