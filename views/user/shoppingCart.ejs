@@ -1,10 +1,3 @@
-<div class="d-flex justify-content-end mb-4">
-  <a href="/savedAddress"
-    ><button type="button" class="btn btn-primary" id="add-address-btn">
-      Change/Add New Address
-    </button></a
-  >
-</div>
 <section class="h-100 gradient-custom">
   <div class="container">
     <div class="row d-flex justify-content-first my-4">
@@ -264,66 +257,100 @@
   //////////////////
 
   function changeQuantity(cartId, proId, userId, count, salePrice) {
-    // console.log(cartId, userId, proId, count, salePrice)
-    // console.log(userId)
-    // console.log(proId)
-
     let quantity = document.getElementById(proId).innerHTML;
     quantity = parseInt(document.getElementById(proId).innerHTML);
     count = parseInt(count);
 
     console.log(count);
+
+    if (quantity === 1 && count === -1) {
+      Swal.fire({
+        title: "Confirmation",
+        text: "Are you sure you want to remove this item from your cart?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+
+        if (result.isConfirmed) {
+          updateQuantity(cartId, proId, userId, count, quantity, salePrice);
+        }
+      });
+    } else if (count) {
+      updateQuantity(cartId, proId, userId, count, quantity, salePrice);
+    }
+  }
+
+  function updateQuantity(cartId, proId, userId, count, quantity, salePrice) {
+  $.ajax({
+    url: "/changeProductQuantity",
+    data: {
+      cart: cartId,
+      product: proId,
+      user: userId,
+      count: count,
+      quantity: quantity,
+    },
+    method: "post",
+    success: (response) => {
+      if (response.removeProduct) {
+        $('tr[data-product-id="' + proId + '"]').remove();
+
+        Swal.fire({
+          icon: "success",
+          title: "Item removed",
+          timer: 2000,
+        }).then(() => {
+          location.reload();
+        });
+      } else {
+        console.log(response.total[0], "res total");
+        var totalproductqt = quantity + count;
+console.log(totalproductqt, "total pro");
+        var carttotal = totalproductqt * parseInt(salePrice);
+console.log(carttotal,"cart total");
+console.log(salePrice,"sale price");
+
+        document.getElementById("totalPrice").innerHTML =
+          "₹" + response.total[0].total;
+
+
+          document.getElementById(proId).innerHTML = quantity + count;
+          console.log("Updated quantity:", quantity + count);
+
+        $("." + proId).html(carttotal);
+
+        console.log("Updated cart total:", carttotal);
+
+        document.getElementById("taxWithTotal").innerHTML =
+          "₹" + response.total[0].totalWithTax;
+        document.getElementById("adtTax").innerHTML =
+          "₹" + response.total[0].totalTax;
+      }
+    },
+  });
+}
+
+
+  function removeProduct(cartId, proId) {
     $.ajax({
-      url: "/changeProductQuantity",
+      url: "/removeProduct",
       data: {
         cart: cartId,
         product: proId,
-        user: userId,
-        count: count,
-        quantity: quantity,
       },
       method: "post",
       success: (response) => {
-        if (response.removeProduct) {
-          console.log("///////////////");
+        $('tr[data-product-id="' + proId + '"]').remove();
 
-          $('tr[data-product-id="' + proId + '"]').remove();
-
-          // document.getElementById('totalPrice').innerHTML ="₹" + response.subtotal;
-          // document.getElementById('adTax').innerHTML ="₹" + response.tax;
-          // document.getElementById('taxWithTotal').innerHTML ="₹" + response.totalWithTax;
-
-          Swal.fire({
-            icon: "success",
-            title: "Item removed",
-            timer: 2000, // Set a timer to automatically close the message after 2 seconds
-          }).then(() => {
-            location.reload(); // Reload the page
-          });
-        } else {
-          // console.log(response)
-          // console.log(carttotal)
-          document.getElementById(proId).innerHTML = quantity + count;
-          var totalproductqt = quantity + count;
-          var carttotal = totalproductqt * parseInt(salePrice);
-
-          document.getElementById("totalPrice").innerHTML =
-            "₹" + response.total[0].total;
-          console.log(response.total,"total babu");
-          // $('.product-total-price').html(carttotal)
-          console.log(carttotal, proId);
-
-          $("." + proId).html(carttotal);
-          console.log();
-          //   $(".product-total-price").first().html(carttotal);
-         console.log(response.total[0].totalWithTax,"gsajdmfh");
-         document.getElementById("taxWithTotal").innerHTML =
-            "₹" + response.total[0].totalWithTax;
-            console.log(response.total[0].totalTax, "Nihalalala");
-          document.getElementById("adtTax").innerHTML =
-            "₹" + response.total[0].totalTax;
-          
-        }
+        Swal.fire({
+          icon: "success",
+          title: "Item removed",
+          timer: 2000,
+        }).then(() => {
+          location.reload();
+        });
       },
     });
   }
@@ -381,8 +408,8 @@
   //               // console.log(response)
   //               // console.log(carttotal)
   //               document.getElementById(proId).innerHTML = quantity + count;
-  //               var totalproductqt = quantity + count;
-  //               var carttotal = totalproductqt * parseInt(salePrice);
+  //               var totalproduct = quantity + count;
+  //               var carttotal = totalproduct * parseInt(salePrice);
 
   //               document.getElementById("totalPrice").innerHTML =
   //                 "₹" + response.total[0].total;

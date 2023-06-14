@@ -1,6 +1,6 @@
 <html lang="en">
   <head>
-    <title>Login 10</title>
+    <title>Looka</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -38,43 +38,108 @@
           <div class="col-md-6 col-lg-4">
             <div class="login-wrap p-0">
               <h3 class="mb-4 text-center">Forgot Password?</h3>
-              <form action="#" class="signin-form">
+              <form id="forgot-pass-form">
                 <div class="form-group">
                   <input
                     type="text"
-                    class="form-control"
-                    placeholder="Mobile or Email"
-                    required
+                    class="form-control border border-light mt-1"
+                    style="background-color: rgba(169, 169, 169, 0.108);border-radius: 30px;"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter mobile number"
+                    style="margin-bottom: 10px;"
                   />
+                  <span id="errorSpan" style="color: red;"></span>
                 </div>
-
-                <div class="otp-container">
-                  <h2>Enter OTP</h2>
-                  <div class="otp-inputs">
-                    <input
-                      type="text"
-                      maxlength="1"
-                      pattern="[0-9]{1}"
-                      autofocus
-                    />
-                    <input type="text" maxlength="1" pattern="[0-9]{1}" />
-                    <input type="text" maxlength="1" pattern="[0-9]{1}" />
-                    <input type="text" maxlength="1" pattern="[0-9]{1}" />
-                  </div>
-                  <button
-                    type="submit"
-                    class="form-control btn btn-primary submit px-3"
-                  >
+                <div style="display: flex; justify-content: center;">
+                  <button type="submit" style="background-color: coral;" class="btn btn-signin btn-lg mt-3 custom-btn">
                     Submit
                   </button>
                 </div>
+              </form>
+              
+
+                <div id="otp-section" class="d-none"  style="display: flex; flex-direction: column; align-items: center;">
+                  <form style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                    <h6 style="text-align: center;">OTP</h6>
+                    <div class="pin-input justify-content-center" style="margin-bottom: 20px;">
+                      <% for (let i = 1; i <= 6; i++) { %>
+                        <input type="text" class="form-control pin-box text-white bg-transparent" id="box<%= i %>" maxlength="1" style="width: 40px; height: 40px; margin-right: 10px;" />
+                      <% } %>
+                    </div>
+                    <button class="btn btn-verify-otp btn-lg" type="button" id="verifyOtp" style="align-self: center; background-color: transparent; color: white; border-color: white;">Verify OTP</button>
+      
+                  </form>
+                
+                  <style>
+                    .otp-form {
+                      text-align: center;
+                    }
+                  
+                    .pin-input {
+                      display: flex;
+                      flex-direction: row;
+                      color: rgb(255, 255, 255);
+                    }
+      
+                    #email::placeholder {
+                       color: #ffffff; /* Replace with desired color */
+        }
+        #mobile::placeholder {
+                       color: #ffffff; /* Replace with desired color */
+        }
+        #password::placeholder {
+                       color: #ffffff; /* Replace with desired color */
+        }
+        #confirmPassword::placeholder {
+                       color: #ffffff; /* Replace with desired color */
+        }
+        #fullName::placeholder {
+                       color: #ffffff; /* Replace with desired color */
+        }
+                  
+      
+                    .pin-box {
+                      width: 50px;
+                      height: 50px;
+                      font-size: 16px;
+                      background-color: transparent;
+                      border: 2px solid white;
+                      color: rgb(255, 255, 255) !important;
+                      text-align: center;
+                      margin-right: 10px;
+                    }
+                  
+                    .transparent-box:focus {
+                      outline: none;
+                      background-color: rgba(255, 255, 255, 0.782) !important;
+                      color: rgb(255, 255, 255) !important;
+                    }
+                  
+                    .transparent-box {
+                      color: rgb(255, 255, 255) !important;
+                      background-color:  rgba(255, 255, 255, 0.782) !important;
+                    }
+                    .btn{
+                      border: 1px solid rgba(0, 0, 0, 0);
+                      background-color: #686868;
+                    }
+                  </style>
+                
+                  <div class="d-flex justify-content-between links" style="width: 100%; margin-bottom: 20px;">
+                    <a onclick="normalSection()" class="text-white" style="margin-left: 20px;">back</a>
+                    <a onclick="normalSection()" class="text-white" style="margin-right: 20px;">Resend</a>
+                  </div>
+                </div>
+                <div id="newPasswordContainer"></div>
+
 
                 <div class="alrdyAcc-h d-md-flex">
                   <div class="alrdyAcc">
                     <a href="/login" style="color: #fff">Go to login</a>
                   </div>
                 </div>
-              </form>
+             
             </div>
           </div>
         </div>
@@ -86,5 +151,321 @@
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/otp.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <script>
+      const inputs = document.querySelectorAll(".pin-box");
+    
+      inputs.forEach((input, index) => {
+        input.addEventListener("keydown", (event) => {
+          if (event.key >= 0 && event.key <= 9) {
+            inputs[index].value = event.key;
+            inputs[index].style.background = "#ffffff";
+            if (index < inputs.length - 1) {
+              inputs[index + 1].style.background = "#ffffff";
+              inputs[index + 1].focus();
+            }
+            event.preventDefault();
+          } else if (event.key === "Backspace" && index > 0) {
+            inputs[index - 1].focus();
+            inputs[index].value = "";
+            inputs[index - 1].value = "";
+            event.preventDefault();
+          }
+        });
+      });
+    </script>
+    <script>
+$(document).ready(function () {
+   
+    $.validator.addMethod(
+      "number",
+      function (value, element) {
+        return this.optional(element) || /^(?!0)[0-9]+$/.test(value);
+      },
+      "numbers only allowed"
+    );
+    $("#forgot-pass-form").validate({
+      rules: {
+       
+        mobile: {
+          required: true,
+          maxlength: 10,
+          minlength: 10,
+          number: true,
+        },
+       
+      },
+      messages: {
+      
+        mobile: {
+          required: "Please enter Mobile Number",
+          minlength: "10 digit indian number should be there",
+          maxlength: "maximum 10 digit allowed in indian number",
+          number: "only numbers allowed",
+        },
+       
+      },
+      highlight: function (element) {
+        $(element).closest(".form-floating").addClass("is-invalid");
+      },
+      unhighlight: function (element) {
+        $(element).closest(".form-floating").removeClass("is-invalid");
+      },
+      errorElement: "div",
+      errorClass: "invalid-feedback",
+      errorPlacement: function (error, element) {
+        if (element.parent(".input-group").length) {
+          error.insertAfter(element.parent());
+        } else {
+          error.insertAfter(element);
+        }
+      },
+    });
+  });
+
+
+      const signupForm = document.getElementById("forgot-pass-form");
+      const otpSection = document.getElementById("otp-section");
+    //   const present = document.getElementById("present");
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        
+        const validator = $("#forgot-pass-form").validate();
+        console.log(validator,"❤️❤️❤️");
+        if (validator.valid()) {
+          const mobileInput = document.getElementById("mobile").value;
+         
+    
+          if (mobileInput) {
+  checkMobileExists(mobileInput);
+} else {
+  // Set the message in the <span> tag
+  const errorMessage = "Please enter your registered mobile number";
+  const errorSpan = document.getElementById("errorSpan");
+  errorSpan.textContent = errorMessage;
+}
+
+        }
+      });
+    
+      async function checkMobileExists(mobile) {
+        console.log(mobile);
+        fetch("/mobileExistsForgotPass", {
+          method: "POST",
+          body: JSON.stringify({
+            mobile: mobile,
+            }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json(); // get the response body
+          })
+          .then((data) => {
+            if (data.success) {
+              sendOTP(mobile);
+            } else {
+              alert("User not found");
+              normalSection();
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("User not exist");
+          });
+      }
+    
+      function sendOTP(mobile) {
+        fetch("/sendotp", {
+          method: "POST",
+          body: JSON.stringify({
+            mobile: mobile,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json(); // get the response body
+          })
+          .then((data) => {
+            console.log(data);
+    
+            if (data.success) {
+              console.log(data);
+              showOTPSection();
+            } else {
+              console.log(data);
+              normalSection();
+              alert("OTP Not sended. Please try again.");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(
+              "An error occurred while sending verifying OTP. Please try again later."
+            );
+          });
+      }
+    
+      function showOTPSection() {
+        console.log("hai");
+    
+        signupForm.classList.add("d-none");
+        console.log("hai");
+    
+        otpSection.classList.remove("d-none");
+        console.log("hai");
+
+       
+    
+        // present.classList.remove("d-none");
+        // console.log("hai");
+      }
+      function normalSection() {
+        otpSection.classList.add("d-none");
+        signupForm.classList.remove("d-none");
+        // present.classList.add("d-none");
+      }
+      const verifyOTPButton = document.querySelector(".btn-verify-otp");
+      verifyOTPButton.addEventListener("click", () => {
+        let otp = document.getElementById("box1").value;
+        otp += document.getElementById("box2").value;
+        otp += document.getElementById("box3").value;
+        otp += document.getElementById("box4").value;
+        otp += document.getElementById("box5").value;
+        otp += document.getElementById("box6").value;
+        console.log(otp);
+        if (verifyOTP(otp)) {
+          console.log("hai");
+        } else {
+          alert("Invalid OTP!");
+        }
+      });
+      async function verifyOTP(otp) {
+        var processing = "Please Wait";
+        $("#verifyOtp").text(processing).css("cursor", "None");
+        console.log(otp);
+        try {
+          const response = await fetch("/verifyotp", {
+            method: "POST",
+            body: JSON.stringify({
+              userOtp: otp,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+    
+          const data = await response.json();
+    
+          console.log(data);
+    
+          if (data.success) {
+  console.log(data);
+  // OTP verification successful, render the new password page
+  var newPasswordContainer = document.getElementById('newPasswordContainer');
+  newPasswordContainer.innerHTML = `
+  <form action="#" class="signin-form" id="password-reset-form">
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    class="form-control"
+                    placeholder="Re-enter password"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <button
+                    type="submit"
+                    class="form-control btn btn-primary submit px-3"
+                    onClick="poasswordinto()"
+                  >
+                    Submit
+                  </button>
+                </div>
+               
+              </form>
+  `;
+
+
+  otpSection.classList.add("d-none");
+  // Optionally, you can also hide or show other elements on the page based on your requirements.
+}
+ else {
+            console.log(data);
+            // OTP verification failed, display an error message
+            alert("Invalid OTP!");
+            var processing = "Verify OTP";
+            $("#verifyOtp").text(processing).css("cursor", "Pointer");
+            showOTPSection();
+          }
+        } catch (error) {
+          console.error(error);
+          alert("An error occurred while verifying OTP. Please try again later.");
+        }
+      }
+    
+     
+
+
+      
+
+       
+  
+
+     async function poasswordinto(){
+       
+       
+
+    event.preventDefault();
+
+    const password = $("#password").val();
+    const confirmPassword = $("#confirmPassword").val();
+
+    // Validate password and confirm password
+    if (password !== confirmPassword) {
+      alert("Passwords do not match. Please try again.");
+      return;
+    }
+
+    try {
+      console.log("hai👌👌👌👌👌👌");
+      const response = await fetch("/resetPassword", {
+        method: "PATCH", // Use PATCH method
+        body: JSON.stringify({
+          password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        alert("Password reset successful.");
+        window.location.href = "/login";
+      } else {
+        alert("An error occurred. Please try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again later.");
+    }
+     }
+    </script>
   </body>
 </html>

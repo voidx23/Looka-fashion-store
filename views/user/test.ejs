@@ -1,0 +1,20 @@
+<% for (let i = 0; i < products.length; i++) { %>
+    <% if (!products[i].isActive) { %>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="box product-box">
+          <div class="option-container">
+            <div class="options">
+              <a href="/productDetail/<%= products[i].id %>" class="option1">View Product</a>
+              <!-- <a href="" class="option2">Buy Now</a> -->
+            </div>
+          </div>
+          <div class="img-box">
+            <img src="/uploads/<%= products[i].images[0] %>" alt="Product Image" />
+          </div>
+          <p class="product-name"><%= products[i].name %></p>
+          <h5 class="product-price">₹<%= products[i].price %></h5>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+  

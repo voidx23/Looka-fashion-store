@@ -18,6 +18,10 @@ const orderSchema = new mongoose.Schema({
   paymentMethod: { type: String, required: true },
   products: [
     {
+      name: {
+        type: String,
+        required: true,
+      },
       item: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
       quantity: { type: Number, required: true },
       size: {
@@ -45,6 +49,10 @@ const orderSchema = new mongoose.Schema({
   totalAmount: { type: Number, required: true },
   paymentstatus: { type: String, required: true },
   deliverystatus: { type: String, required: true },
+  returnstatus: { type: String},
+  deliveryDate: { type: Date },
+  returnDate: { type: Date },
+  reason: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
 

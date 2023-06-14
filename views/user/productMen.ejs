@@ -1,54 +1,430 @@
 <!-- inner page section -->
-<section class="inner_page_head">
+<section class="inner_page_head" style="background-color: white; border-bottom: 2px solid rgb(215, 212, 212);">
     <div class="container_fuild">
       <div class="row">
         <div class="col-md-12">
-          <div class="full">
+          <div class="full" style="height: 10px; display: flex; justify-content: center; align-items: center; text-align: center;background-color: white;">
             <h3>Mens</h3>
           </div>
+          
         </div>
       </div>
     </div>
   </section>
   <!-- end inner page section -->
   <!-- product section -->
-  <section class="product_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-      <!-- HTML Markup -->
-<div class="container">
- 
+  <!-- <div class="flex-w flex-c-m m-tb-10">
+    <div
+      class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter"
+    >
+      <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+      <i
+        class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"
+      ></i>
+      Filter
+    </div>
 
+    <div
+      class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search"
+    >
+      <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+      <i
+        class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"
+      ></i>
+      Search
+    </div>
+  </div> -->
+
+  <!-- Search product
+  <div class="dis-none panel-search w-full p-t-10 p-b-15">
+    <div class="bor8 dis-flex p-l-15">
+      <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+        <i class="zmdi zmdi-search"></i>
+      </button> -->
+
+      <!-- <input
+        class="mtext-107 cl2 size-114 plh2 p-r-15"
+        type="text"
+        id="search-input"
+        name="search-product"
+        placeholder="Search"
+      />
+    </div>
+  </div> -->
+
+  <!-- Filter -->
+  <!-- <div class="dis-none panel-filter w-full p-t-10">
+    <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+      <div class="filter-col1 p-r-15 p-b-27">
+        <div class="mtext-102 cl2 p-b-15">Sort By</div>
+
+        <ul>
+          <li class="p-b-6">
+            <a
+              href="#"
+              class="filter-link stext-106 trans-04"
+              onClick="singleChange('','sorted')"
+            >
+              Default
+            </a>
+          </li> -->
+
+          <!-- <li class="p-b-6">
+            <a
+              href="#"
+              class="filter-link stext-106 trans-04"
+              onClick="singleChange('popularity','sorted')"
+            >
+              Popularity
+            </a>
+          </li>
+
+          <li class="p-b-6">
+            <a
+              href="#"
+              class="filter-link stext-106 trans-04"
+              onClick="singleChange('lth','sorted')"
+            >
+              Price: Low to High
+            </a>
+          </li>
+
+          <li class="p-b-6">
+            <a
+              href="#"
+              class="filter-link stext-106 trans-04"
+              onClick="singleChange('htl','sorted')"
+            >
+              Price: High to Low
+            </a>
+          </li>
+        </ul>
+      </div> -->
+
+      <!-- <div class="filter-col3 p-r-15 p-b-27">
+        <div class="mtext-102 cl2 p-b-15">Color</div>
+
+        <ul id="colour">
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="colour_all"
+                  checked=""
+                  value="all"
+                  onClick="change('all','colour')"
+                />
+                All
+                <span
+                  class="fs-15 lh-12 m-r-6"
+                  style="
+                    color: radial-gradient(
+                      closest-side at 50% 50%,
+                      red,
+                      green,
+                      peach
+                    );
+                  "
+                >
+                  <i class="zmdi zmdi-circle"></i>
+                </span>
+              </label>
+            </div>
+          </li> -->
+          <!-- <% for (let i = 0; i < color.length; i++) { %>
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="colour_<%=color[i]._id%>"
+                  value="<%=color[i]._id%>"
+                  onClick="change('<%=color[i]._id%>','colour')"
+                />
+                <%= color[i].values%>
+                <span
+                  class="fs-15 lh-12 m-r-6"
+                  style="color: '<%=color[i].values%>'"
+                >
+                  <i class="zmdi zmdi-circle"></i>
+                </span>
+              </label>
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div> -->
+      <!-- <div class="filter-col4 p-r-15 p-b-27">
+        <div class="mtext-102 cl2 p-b-15">Product Type</div>
+
+        <ul id="producttype">
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  checked=""
+                  id="producttype_all"
+                  value="all"
+                  onClick="change('all','producttype')" />
+                All
+                <i class="input-helper"></i
+              ></label>
+            </div>
+          </li> -->
+          <!-- <% for (let i = 0; i < productType.length; i++) { %>
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="producttype_<%=productType[i]._id%>"
+                  value="<%=productType[i]._id%>"
+                  onClick="change('<%=productType[i]._id%>','producttype')" />
+                <%=productType[i].values%>
+                <i class="input-helper"></i
+              ></label>
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div> -->
+      <!-- <div class="filter-col5 p-r-15 p-b-27">
+        <div class="mtext-102 cl2 p-b-15">Pattern</div>
+        <ul id="pattern">
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  checked=""
+                  id="pattern_all"
+                  value="all"
+                  onClick="change('all','pattern')"
+                />
+                All
+                <i class="input-helper"></i>
+              </label>
+            </div>
+          </li>
+          <% for (let i = 0; i < pattern.length; i++) { %>
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="pattern_<%=pattern[i]._id%>"
+                  value="<%=pattern[i]._id%>"
+                  onClick="change('<%=pattern[i]._id%>','pattern')"
+                />
+                <%=pattern[i].values%>
+                <i class="input-helper"></i>
+              </label>
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div> -->
+
+      <!-- <div class="filter-col5 p-r-15 p-b-27">
+        <div class="mtext-102 cl2 p-b-15">Product Category</div>
+        <ul id="category">
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  checked=""
+                  id="category_all"
+                  value="all"
+                  onClick="change('all','category')"
+                />
+                All
+                <i class="input-helper"></i>
+              </label>
+            </div>
+          </li>
+          <% for (let i = 0; i < productCategory.length; i++) { %>
+          <li class="p-b-6">
+            <div class="filter-link stext-106 trans-04">
+              <label class="form-check-label">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="category_<%=productCategory[i]._id%>"
+                  value="<%=productCategory[i]._id%>"
+                  onClick="change('<%=productCategory[i]._id%>','category')"
+                />
+                <%=productCategory[i].values%>
+                <i class="input-helper"></i>
+              </label>
+            </div>
+          </li>
+          <% } %>
+        </ul>
       </div>
-      <div class="row" id=" product-grid">
-        
-          
+     
+    </div>
+  </div>
+</div> -->
+<div class="container">
+<section class="product_section layout_padding">
+  <div style="display: flex; align-items: center;">
+    <input id="search" class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+    <button style="margin-left: 5px;border: none;" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04" onclick="searchProduct()">
+      <i class="fa fa-search nav_search-btn"></i>
+    </button>
+    
 
-          
-        <% for (let i=0;i<products.length;i++){%>
-          <% if (!products.isActive) { %>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box" style="max-height: 380px;">
-            <div class="option_container">
-              <div class="options">
-                <a href="/productDetail/<%= products[i].id %>" class="option1"> View Product </a>
-                <a href="" class="option2"> Buy Now </a>
+    <br><br><br><br>
+
+   
+    
+  </div>
+  <ul id="suggestions" style="margin-left: 5px;"></ul>  
+
+  
+  <div class="row">
+    <aside class="col-md-3">
+      <div class="card">
+        <article>
+          <header class="card-header">
+            <h6 class="title">Sort by</h6>
+          </header>
+          <div class="card-body">
+            <ul class="list-menu">
+             
+              <a href="/productMenSorted?sorted=htl">Price: High to Low</a>
+
+              <a href="/productMenSorted?sorted=lth">Price: Low to High</a>
+              
+            </ul>
+          </div>
+        </article>
+        </div>
+        <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter" style="margin-left: 5px;">
+          <!-- <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+          <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i> -->
+          Filter
+        </div>
+        <div class="card">
+        <article class="filter-group">
+          <header class="card-header">
+            <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+              <h6 class="title">Product type</h6>
+            </a>
+          </header>
+          <div class="filter-content collapse show" id="collapse_1" style="">
+            <div class="card-body">
+              <ul class="list-menu">
+                <label class="checkbox-btn">
+                  <input type="checkbox" onclick="filterProducts('productType', 'all')">
+                  <span class="btn btn-light">All</span>
+                </label>
+                <% for (let i=0; i<productType.length; i++){%>
+                  <% if (productType[i].isListed) { %>
+                  <label class="checkbox-btn">
+                    <input type="checkbox" onclick="filterProducts('productType', '<%= productType[i].values %>')">
+                    <span class="btn btn-light"><%= productType[i].values %></span>
+                  </label>
+                  <% } %>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="filter-group">
+          <header class="card-header">
+            <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+              <h6 class="title">Color</h6>
+            </a>
+          </header>
+          <div class="filter-content collapse show" id="collapse_2" style="">
+            <div class="card-body">
+              <% for (let i=0; i<color.length; i++){%>
+                <% if (color[i].isListed) { %>
+              <label class="checkbox-btn">
+                <input type="checkbox" onclick="filterProducts('color', '<%= color[i].values %>')">
+                <span class="btn btn-light"><%= color[i].values %></span>
+              </label>
+              <% } %>
+              <% } %>
+            </div>
+          </div>
+        </article>
+        <article class="filter-group">
+          <header class="card-header">
+            <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+              <h6 class="title">Pattern</h6>
+            </a>
+          </header>
+          <div class="filter-content collapse show" id="collapse_4" style="">
+            <div class="card-body">
+              <% for (let i=0; i<pattern.length; i++){%>
+                <% if (pattern[i].isListed) { %>
+              <label class="checkbox-btn">
+                <input type="checkbox" onclick="filterProducts('pattern', '<%= pattern[i].values %>')">
+                <span class="btn btn-light"><%= pattern[i].values %></span>
+              </label>
+              <% } %>
+              <% } %>
+            </div>
+          </div>
+        </article>
+        <article class="filter-group">
+          <header class="card-header">
+            <a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
+              <h6 class="title">Product Category</h6>
+            </a>
+          </header>
+          <div class="filter-content collapse in" id="collapse_5" style="">
+            <div class="card-body">
+              <% for (let i=0; i<productCategory.length; i++){%>
+                <% if (productCategory[i].isListed) { %>
+              <label class="custom-control custom-radio">
+                <input type="radio" name="myfilter_radio" checked="" class="custom-control-input" onclick="filterProducts('productCategory', '<%= productCategory[i].values %>')">
+                <div class="custom-control-label"><%= productCategory[i].values %></div>
+              </label>
+              <% } %>
+              <% } %>
+            </div>
+          </div>
+        </article>
+      </div>
+    </aside>
+    <div class="col-md-9 d-flex" id="product-grid">
+      <div class="row">
+        <% for (let i=0; i<products.length; i++){%>
+          <% if (products[i].isActive) { %>
+            <div class="col-sm-6 col-md-4 col-lg-4 product-item" data-producttype="<%= products[i].productType %>" data-color="<%= products[i].color %>" data-pattern="<%= products[i].pattern %>" data-category="<%= products[i].category %>">
+              <div class="box d-flex flex-column justify-content-center align-items-center" style="max-height: 400px; min-height: 390px; margin-top: 0; padding-top: 0; padding-bottom: 0;">
+                <div class="option_container">
+                  <div class="options">
+                    <a href="/productDetail/<%= products[i].id %>" class="option1">View Product</a>
+                  </div>
+                </div>
+                <div class="img-box">
+                  <img style="min-width: 200px; min-height: 240px; margin-bottom: 30px;" src="/uploads/<%= products[i].images[0] %>" alt="" />
+                </div>
+                <p style="font-size: 13px; position: relative;"><%= products[i].name %></p>
+                <h5 style="margin-top: 5px">₹<%= products[i].price %></h5>
               </div>
             </div>
-            <div class="img-box">
-              <img src="/uploads/<%= products[i].images[0]%>" alt="" />
-            </div>
-           
-              <p style="font-size: 13px; position: relative"><%= products[i].name%></p>
-             
-              <h5 style="margin-top: 5px">₹<%= products[i].price%></h5>
-           
-          </div>
-        </div>
+          <% } %>
         <% } %>
-        <% } %>
-      
       </div>
+    </div>
+  </div>
+  
+      <br>
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
           <% if (currentPage !== 1) { %>
@@ -56,91 +432,182 @@
               <a class="page-link" href="/productMen?page=<%= currentPage-1 %>" tabindex="-1">Previous</a>
             </li>
           <% } %>
-         
-          <% for( let i = 1; i <= totalPages; i++ ) { %>
-            
-            <li class="page-item"><a class="page-link" href="/productMen?page=<%=i %>"><%= i %></a></li>
 
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === currentPage) { %>
+              <li class="page-item active">
+                <a class="page-link" href="/productMen?page=<%= i %>"><%= i %></a>
+              </li>
+            <% } else { %>
+              <li class="page-item">
+                <a class="page-link" href="/productMen?page=<%= i %>"><%= i %></a>
+              </li>
+            <% } %>
           <% } %>
-         
-          <% if (currentPage !== totalPages ) { %>
+
+          <% if (currentPage !== totalPages) { %>
             <li class="page-item">
               <a class="page-link" href="/productMen?page=<%= currentPage+1 %>">Next</a>
             </li>
           <% } %>
-          
         </ul>
       </nav>
+
     </div>
-  </section>
+  </div>
+</section>
+
   <!-- end product section -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://www.solodev.com/assets/pagination/jquery.twbsPagination.js"></script>
+
  
-  
-  
-  <!-- <script>
-    var totalPages = '<%= totalPages%>'
-    var page = '<%= currentPage%>'
-  
-    $("#pagination-demo").twbsPagination({
-      totalPages: totalPages,
-      // the current page that show on start
-      startPage: page,
-  
-      // maximum visible pages
-      visiblePages: totalPages,
-  
-      initiateStartPageClick: true,
-  
-      // template for pagination links
-      href: false,
-  
-      // variable name in href template for page number
-      hrefVariable: "{{number}}",
-  
-      // Text labels
-      first: "First",
-      prev: "Prev",
-      next: "Next",
-      last: "Last",
-  
-      // carousel-style pagination
-      loop: false,
-  
-      // callback function
-      onPageClick: function (event, page) {
-        $(".page-active").removeClass("page-active");
-        $("#page" + page).addClass("page-active");
-      },
-  
-      // pagination Classes
-      paginationClass: "pagination d-flex",
-      nextClass: "next",
-      prevClass: "prev",
-      lastClass: "last",
-      firstClass: "first",
-      pageClass: "page",
-      activeClass: "active",
-      disabledClass: "disabled",
-    });
-    $(".page").css({
-      margin: "0 5px",
-      cursor: "pointer",
-      padding: "5px",
-      backgroundColor: "#f8f8f8",
-      border: "1px solid #ddd",
-      borderRadius: "3px",
-    });
-  
-    $(".page.active").css({
-      fontWeight: "bold",
-      backgroundColor: "#007bff",
-      color: "#fff",
-      borderColor: "#007bff",
-    });
 
-   
+  <script>
 
-  </script> -->
+const selectedFilters = {};
+
+function filterProducts(filterType, filterValue) {
+  const productItems = document.getElementsByClassName('product-item');
+  const itemFilterType = `data-${filterType}`;
+
+  if (filterValue === 'all') {
+    delete selectedFilters[filterType];
+  } else {
+    if (selectedFilters[filterType]) {
+      const index = selectedFilters[filterType].indexOf(filterValue);
+      if (index !== -1) {
+        selectedFilters[filterType].splice(index, 1);
+      } else {
+        selectedFilters[filterType].push(filterValue);
+      }
+    } else {
+      selectedFilters[filterType] = [filterValue];
+    }
+  }
+
+  for (let i = 0; i < productItems.length; i++) {
+    const item = productItems[i];
+    const itemFilterValue = item.getAttribute(itemFilterType);
+
+    if (selectedFilters[filterType] && selectedFilters[filterType].length > 0) {
+      const selectedFilterValues = selectedFilters[filterType];
+      if (selectedFilterValues.includes(itemFilterValue) || selectedFilterValues.includes('all')) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    } else {
+      item.style.display = 'block';
+    }
+  }
+}
+
+
+
+//suggesions in search
+$(document).ready(function() {
+    $('#search').on('keyup', function() {
+        var query = $(this).val();
+        console.log(query);
+        if (query.length < 1) {
+            $('#suggestions').empty();
+            return;
+        }
+        $.getJSON('/shop/search/suggestions/', { q: query }, function(data) {
+            var suggestions = data.suggestions;
+            
+            $('#suggestions').empty();
+            
+            suggestions.forEach(function(suggestion) {
+                var li = $('<li>').addClass('suggestion-item').text(suggestion);
+                li.click(function() {
+                    $('#search').val(suggestion);
+                    $('#suggestions').empty();
+                    
+                });
+                $('#suggestions').append(li);
+            });
+        });
+    });
+});
+
+
+function searchProduct() {
+  // Get the search query from the input field
+  var searchQuery = document.getElementById("search").value;
+
+  // Create a new XMLHttpRequest object
+  var xhr = new XMLHttpRequest();
+
+  // Configure the request
+  var url;
+  if (searchQuery.trim() === "") {
+    // If the search query is empty, retrieve all products
+    url = "/productMen";
+  } else {
+    // If the search query is not empty, search for products based on the query
+    url = "/search?query=" + encodeURIComponent(searchQuery);
+  }
+  xhr.open("GET", url, true);
+
+  // Set the callback function
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Process the response from the back-end script
+      var response = JSON.parse(xhr.responseText);
+      updateProductContainer(response);
+    }
+  };
+
+  // Send the request
+  xhr.send();
+}
+
+
+function updateProductContainer(products) {
+  var productGrid = document.getElementById("product-grid");
+
+  if (!productGrid) {
+    console.error("Product grid element not found.");
+    return;
+  }
+
+  productGrid.innerHTML = "";
+
+  var html = "";
+
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].isActive) {
+
+     
+     
+      html += `
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="box d-flex flex-column justify-content-center align-items-center" style="max-height: 400px; min-height: 390px; margin-top: 0; padding-top: 0; padding-bottom: 0;">
+            <div class="option_container">
+              <div class="options">
+                <a href="/productDetail/${products[i]._id}" class="option1">View Product</a>
+              </div>
+            </div>
+            <div class="img-box">
+              <img style="min-width: 200px; min-height: 240px; margin-bottom: 30px;" src="/uploads/${products[i].images[0]}" alt="" />
+            </div>
+            <p style="font-size: 13px; position: relative;">${products[i].name}</p>
+            <h5 style="margin-top: 5px">₹${products[i].price}</h5>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  productGrid.innerHTML = html;
+}
+
+
+
+
+  </script>
+ 
+
   

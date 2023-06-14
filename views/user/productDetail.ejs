@@ -455,10 +455,106 @@
 </script>
 
 <style>
-  .my-swal-popup {
-    width: 350px !important;
-    height: 250px !important;
-    font-size: 12px;
+  .my-swal-container {
+    font-family: Arial, sans-serif;
+  }
+
+  .my-swal-header {
+    background-color: #33333300;
+    color: #fff;
+    border: none;
+  }
+
+  .my-swal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .my-swal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    color: #887d7d;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .my-swal-close-button:hover {
+    color: #e74949;
+  }
+
+  .my-swal-icon {
+    color: #333;
+  }
+
+  .my-swal-content {
+    font-size: 18px;
+    color: #333;
+    padding: 20px;
+  }
+
+  .my-swal-actions {
+    text-align: center;
+  }
+
+  .my-swal-confirm-button {
+    background-color: #333;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .my-swal-confirm-button:hover {
+    background-color: #555;
+  }
+
+  .my-swal-container-1 {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .my-swal-popup-1 {
+    padding: 20px;
+  }
+
+  .my-swal-title-1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .my-swal-text-1 {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .my-swal-confirm-button-1 {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .my-swal-confirm-button-1:hover {
+    background-color: #f57c00;
+  }
+
+  .my-swal-close-button-1 {
+    font-size: 24px !important;
+    color: #999;
+    transition: color 0.3s ease;
+  }
+
+  .my-swal-close-button-1:hover {
+    color: #666;
   }
 </style>
 <script>
@@ -508,45 +604,84 @@
   });
 
   function addToCart(proId) {
-    const activeBtn = $(".size-btn.active");
-    const size = $(".size-btn.active").text();
-    console.log(proId);
-    if (activeBtn.length > 0) {
-      // alert('rdtfyghuij');
-      $.ajax({
-        url: `/addtoCart/${proId}/?size=${size}`,
-        method: "get",
-        success: (response) => {
-          //alert(response)
-          let count = $("#cartCount").html();
+    // Check if user exists
+    userExists((userExists) => {
+      if (userExists) {
+        const activeBtn = $(".size-btn.active");
+        const size = $(".size-btn.active").text();
+        console.log(proId);
+        if (activeBtn.length > 0) {
+          $.ajax({
+            url: `/addtoCart/${proId}/?size=${size}`,
+            method: "get",
+            success: (response) => {
+              let count = $("#cartCount").html();
+              count = parseInt(count) + 1;
+              $("#cartCount").html(count);
 
-          count = parseInt(count) + 1;
-
-          console.log(count, "kfdghfdgjhgfdghgfdghjkhgfhkjgfdghgfdgh");
-          $("#cartCount").html(count);
-
-          console.log(typeof count);
-          console.log(count, "countttt");
-          Swal.fire({
-            title: "Product Added",
-            text: "The product has been added to your cart",
-            icon: "success",
-            customClass: {
-              container: "my-swal-container",
-              popup: "my-swal-popup",
-              content: "my-swal-content",
+              Swal.fire({
+                title: "Thank You!",
+                text: "Your product has been added to your cart.",
+                icon: "success",
+                customClass: {
+                  container: "my-swal-container",
+                  popup: "my-swal-popup",
+                  header: "my-swal-header",
+                  title: "my-swal-title",
+                  closeButton: "my-swal-close-button",
+                  icon: "my-swal-icon",
+                  content: "my-swal-content",
+                  actions: "my-swal-actions",
+                  confirmButton: "my-swal-confirm-button",
+                },
+                showCloseButton: true,
+                showConfirmButton: true,
+                confirmButtonText: "View Cart",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "/shoppingCart";
+                }
+              });
             },
           });
-        },
-      });
-    } else {
-      swal.fire({
-        title: "size  not selected",
-        text: "Please select a size to proceed.",
-        icon: "error",
-        button: "OK",
-      });
-    }
+        } else {
+          Swal.fire({
+            title: "Size not selected",
+            text: "Please select a size to proceed.",
+            icon: "error",
+            customClass: {
+              container: "my-swal-container-1",
+              popup: "my-swal-popup-1",
+              title: "my-swal-title-1",
+              text: "my-swal-text-1",
+              confirmButton: "my-swal-confirm-button-1",
+              closeButton: "my-swal-close-button-1",
+            },
+            showCloseButton: true,
+            closeButtonHtml: '<i class="fas fa-times"></i>',
+          });
+        }
+      } else {
+        // Redirect to login page
+        window.location.href = "/login";
+      }
+    });
+  }
+
+  function userExists(callback) {
+    // Check if user exists
+    $.ajax({
+      url: "/checkUserSession",
+      method: "get",
+      success: (response) => {
+        const userExists = response.isAuthenticated;
+        callback(userExists);
+      },
+      error: (error) => {
+        console.error("Error checking user session:", error);
+        callback(false);
+      },
+    });
   }
 
   // function addToCart(proId) {

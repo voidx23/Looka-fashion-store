@@ -1,0 +1,148 @@
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    
+    
+    #container {
+      display: flex;
+      height: 100vh;
+    }
+    
+    .sidebar {
+      width: 200px;
+      background-color: #f1f1f1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .sidebar .option {
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #e6e6e6;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sidebar .option:hover {
+      background-color: #d4d4d4;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+      border-left: 1px solid #ccc;
+      overflow-y: auto;
+    }
+    
+    .section {
+      display: none;
+    }
+    
+    .section.active {
+      display: block;
+    }
+    
+    .section h2 {
+      margin-top: 0;
+    }
+    .profile-picture {
+  float: right;
+  margin-right: 10px;
+}
+
+  </style>
+
+<div class="container" id="container">
+    <div class="sidebar" style="margin-top:50px; border-radius: 20px; margin-bottom: 50px;">
+      <div class="option" onclick="showSection('profile-section')">Profile</div>
+      <div class="option" onclick="showSection('address-section')">Address</div>
+      <div class="option"><a href="/myOrders" style="color: #6F6F6F;">My orders</a></div>
+      <div class="option" onclick="showSection('wallet-section')">Wallet</div>
+      <div class="option" onclick="logoutFunc()" style="background-color: rgba(255, 0, 0, 0.500);"><a style="color: white;">Logout    </a><i class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i> </div>
+    
+      
+
+    </div>
+    <div class="main-content" style="background-color: #dedede;margin-top:50px; border-radius: 20px; margin-bottom: 50px; margin-left: 20px;">
+        <div id="address-section" class="section">
+            <h2>Address</h2>
+            
+            <div class="address-details">
+              <p><strong>First Name:</strong> <%= address.address[0].firstname%></p>
+              <p><strong>Last Name:</strong> <%= address.address[0].lastname%></p>
+              <p><strong>Address:</strong> <br> <%= address.address[0].streetaddress%> <br> <%= address.address[0].town%> <br> <%= address.address[0].state%> <br> <%= address.address[0].zip%> </p>
+              <p><strong>Email:</strong> <%= address.address[0].email %></p>
+              <p><strong>Phone:</strong><%= address.address[0].mobile %></p>
+            </div>
+          </div>
+          
+          <div id="wallet-section" class="section">
+            <h2>Wallet</h2>
+            <div class="wallet-details">
+              <!-- <p><strong>Wallet ID:</strong> W1234567890</p> -->
+              <p><strong>Balance:</strong><span> &#8377 </span><%= wallet.balance %></p>
+              <p><strong>Last Transaction:</strong> May 28, 2023</p>
+            </div>
+          </div>
+          
+          <div id="profile-section" class="section">
+            <h2 style="margin-bottom: 30px; margin-left: 20px;">Profile</h2>
+            <div class="profile-details">
+              <!-- <div class="profile-picture" style="height: 220px; width: 200px; background-color: gray; margin-right: 50px;">
+                <img src="path_to_your_image.jpg" alt="Profile Picture">
+              </div> -->
+              <div class="profile-info" style="margin-left: 20px;">
+                <p><strong>Name:</strong> <%= locals.username %></p>
+                <p><strong>Email:</strong><%= locals.useremail %></p>
+                <p><strong>Date of Birth:</strong> January 1, 1990</p>
+                <p><strong>Gender:</strong> Male</p>
+              
+              </div>
+            </div>
+          </div>
+          
+    </div>
+  </div>
+  
+  <script>
+  // Assuming you have a logout button with the id "logoutButton" in your HTML
+
+// Function to handle the logout action
+function logoutFunc() {
+  // Make a GET request to the server to initiate the logout
+  fetch('/logout', {
+    method: 'GET',
+    credentials: 'same-origin' // Include this line if your backend requires session cookies
+  })
+    .then(response => {
+      if (response.redirected) {
+        // Redirect to the homepage or any other desired page
+        window.location.href = response.url;
+      } else {
+        // Handle any other response or error conditions
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// Add an event listener to the logout button
+// document.getElementById('logoutButton').addEventListener('click', logout);
+
+
+    function showSection(sectionId) {
+      var sections = document.getElementsByClassName("section");
+      for (var i = 0; i < sections.length; i++) {
+        sections[i].classList.remove("active");
+      }
+      
+      var section = document.getElementById(sectionId);
+      section.classList.add("active");
+    }
+  </script>
+

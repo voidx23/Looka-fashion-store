@@ -382,32 +382,33 @@
           
 
           
-               <% products.forEach(element => { %>
-                  <div class="col-sm-6 col-md-4 col-lg-3">
-                     <div class="box">
-                       <div class="option_container">
-                         <div class="options">
-                           <a href="user/productDetail" class="option1"> View Product </a>
-                           <a href="" class="option2"> Buy Now </a>
-                         </div>
-                       </div>
-                       <div class="img-box">
-                         <img src="/uploads/<%= element.images[0]%>" alt="" />
-                       </div>
-                      
-                         <p style="font-size: 13px; position: relative"><%= element.name%></p>
-                        
-                         <h5 style="margin-top: 5px">₹<%= element.price%></h5>
-                      
-                     </div>
-                   </div>
-               <% }) %>
+               <% for (let i=0;i<products.length;i++){%>
+                  <% if (products[i].isActive) { %>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                      <div class="box d-flex flex-column justify-content-center align-items-center" style="max-height: 400px; min-height: 390px; margin-top: 0; padding-top: 0; padding-bottom: 0;">
+                        <div class="option_container">
+                          <div class="options">
+                            <a href="/productDetail/<%= products[i].id %>" class="option1">View Product</a>
+                            <!-- <a href="" class="option2">Buy Now</a> -->
+                          </div>
+                        </div>
+                        <div class="img-box">
+                          <img style="min-width: 200px; min-height: 240px; margin-bottom: 30px;" src="/uploads/<%= products[i].images[0] %>" alt="" />
+                        </div>
+                        <p style="font-size: 13px; position: relative;"><%= products[i].name %></p>
+                        <h5 style="margin-top: 5px">₹<%= products[i].price %></h5>
+                      </div>
+                    </div>
+                    
+                    
+                <% } %>
+                <% } %>
                
                
              
              </div>
             <div class="btn-box">
-               <a href="">
+               <a href="/productMen?page=1">
                View All products
                </a>
             </div>

@@ -54,11 +54,11 @@
    
         <!-- <div class="container-fluid">
           <a class="navbar-brand d-flex justify-content-center" href="/productlist"> -->
-            <div class="col-md-6 text-center mx-auto login-logo">
+            <!-- <div class="col-md-6 text-center mx-auto login-logo">
             <img  src="/images/login-images/looka.png"
                   alt="logo"
                   style="max-width: 200px; max-height: 200px;"/>
-                  </div>
+                  </div> -->
           <!-- </a> -->
       
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -80,9 +80,9 @@
     <div class="row justify-content-center align-items-center vh-50">
       <div class="col-12 col-md-8 col-lg-6">
         <div class="box p-4">
-            <h1 class="signin-heading mb-4 text-center">Sign Up</h1>
+            <h1 class="signin-heading mb-4 text-center" style="color: #dc3545;">Sign Up</h1>
 
-          <form id="signup-form"  >
+          <form id="signup-form" action="submit"  >
 
             <input
             type="text"
@@ -151,6 +151,7 @@
                 <button type="submit" class="btn btn-signin btn-lg mt-3 custom-btn">
                     Sign Up
                 </button>
+                <a href="/login" style="color: white;">Already have an account?</a>
                 <style>
                   
                 .custom-btn {
@@ -259,8 +260,11 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+
 <script>
   $(document).ready(function () {
+    
     $.validator.addMethod(
       "noSpecialChars",
       function (value, element) {
@@ -286,6 +290,7 @@
       "numbers only allowed"
     );
     $("#signup-form").validate({
+      
       rules: {
         email: {
           required: true,
@@ -338,7 +343,9 @@
         //   equalTo: "Your passwords do not match",
         // },
       },
+      
       highlight: function (element) {
+        
         $(element).closest(".form-floating").addClass("is-invalid");
       },
       unhighlight: function (element) {
@@ -388,7 +395,7 @@
 
   var passedCriteria = 0;
   
-  // Check each criterion against the password
+  // Check each iterion against the password
   for (var i = 0; i < regex.length; i++) {
     if (new RegExp(regex[i]).test(password)) {
       passedCriteria++;
@@ -440,14 +447,16 @@
     });
   });
 </script>
-
 <script>
   const signupForm = document.getElementById("signup-form");
   const otpSection = document.getElementById("otp-section");
+  console.log(signupForm,"signup form");
+  console.log(otpSection,"otpsection ");
 //   const present = document.getElementById("present");
   signupForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const validator = $("#signup-form").validate();
+    console.log(validator,"validator");
     if (validator.valid()) {
       const mobileInput = document.getElementById("mobile").value;
       const emailInput = document.getElementById("email").value;
@@ -455,7 +464,7 @@
       if (mobileInput && emailInput) {
         checkEmailExists(mobileInput, emailInput);
       } else {
-        normalSection();
+       //else provide an message that email id or mobile number you entered does not mat
       }
     }
   });

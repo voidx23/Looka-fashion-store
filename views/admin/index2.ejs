@@ -1,3 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+    <title>Admin Panel</title>
+
+    <link href="/css/admin-css/app.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    
+  </head>
+</html>
 <body>
   <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
@@ -40,6 +74,13 @@
             <a class="sidebar-link" href="/admin/orderStatus">
               <i class="align-middle" data-feather="package"></i>
               <span class="align-middle">Order Status</span>
+            </a>
+          </li>
+
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="/admin/salesReport">
+              <i class="align-middle" data-feather="package"></i>
+              <span class="align-middle">Sales Report</span>
             </a>
           </li>
 
@@ -107,14 +148,307 @@
                   Help Center</a
                 >
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Log out</a>
+                <a class="dropdown-item" href="/logout">Log out</a>
               </div>
             </li>
           </ul>
         </div>
       </nav>
 
-      <main class="content"></main>
+      <main class="content">
+
+       
+      <!-- EOF Breadcrumb -->
+
+      <!-- BOF MAIN-BODY -->
+      <div class="row">
+          <div class="col-md-4">
+              <div class="card mb-3">
+                  <div class="card-body">
+                      <div class="icon-left text-secondary"><i class="ti-bar-chart"></i></div>
+                      <div class="number-left text-left">
+                          <h4 class="bold text-secondary">Sales</h4>
+                          <h1 class="card-title  bold" style="color: skyblue;">₹<%= locals.totalProfit %></h1>
+                          <span class="float-left"><small>Total Sales</small></span>
+                      </div>
+                     
+                      
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card mb-3">
+                  <div class="card-body">
+                      <div class="icon-left text-secondary"><i class="ti-receipt"></i></div>
+                      <div class="number-right text-right">
+                          <h6 class="bold text-secondary">Orders</h6>
+                          <h3 class="card-title  bold" style="color: rgb(251, 175, 188);" id="orderCount"><%= locals.order_count %></h3>
+                          
+                      </div>
+                      <div class="progress progress-bar-sm">
+                          <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100"
+                              aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <div class="progress-text text-secondary">
+                          <span class="float-left"><small>Total Orders</small></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card mb-3">
+                  <div class="card-body">
+                      <div class="icon-left text-secondary"><i class="ti-wallet"></i></div>
+                      <div class="number-right text-right">
+                          <h6 class="bold text-secondary">Shipped</h6>
+                          <h3 class="card-title  bold" style="color: rgb(249, 196, 123);" id="totalShipped"><%= locals.totalShipped %></h3>
+                      </div>
+                      <div class="progress progress-bar-sm">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated bg-bubblegum" role="progressbar" style="width: 30%" aria-valuenow="30"
+                              aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <div class="progress-text text-secondary">
+                          <span class="float-left"><small>Total shipped Orders </small></span>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      
+     
+      <div class="col-lg-12 grid-margin stretch-card d-flex"  >
+        <div class="card" style="width: 450px; height: 450px;">
+          <div class="card-body" >
+            <h4 class="card-title">Sales-category</h4>
+            <canvas id="polarArea" ></canvas>
+          </div>
+        </div>
+        <div class="card" style="width: 450px; height: 450px;margin-left: 10px;">
+          <div class="card-body" >
+            <h4 class="card-title">Sales-category</h4>
+            <select id="yearFilter">
+              <option value="0">Year</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <!-- Add more options for other years -->
+            </select>
+           <canvas id="bar"></canvas>
+
+          </div>
+        </div>
+      </div>
+         
+
+      <!-- Year Comparison Chart -->
+      
+
+     
+
+        
+      </main>
     </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("DOMContentLoaded");
+      const yearFilter = document.getElementById('yearFilter');
+      console.log(yearFilter,"year filter");
+      const ctx = document.getElementById('bar').getContext('2d');
+      console.log(ctx, "ctx");
+      let bar;
+      console.log(bar,"bar");
+  
+                     
+  
+      // Listen for changes in the year filter
+      yearFilter.addEventListener('change', () => {
+        console.log(yearFilter,"year filter worked");
+        const selectedYear = yearFilter.value;
+
+        console.log(selectedYear,"selected year")
+
+
+        // Fetch the sales data for the selected year from the backend
+        fetchSalesData(selectedYear)
+          .then(salesData => {
+            console.log("inside fetch sale data");
+            console.log(salesData,"sales data");
+            // Update the chart with the fetched sales data
+            updateChart(salesData);
+          })
+          .catch(error => {
+            console.error('Error fetching sales data:', error);
+          });
+      });
+
+
+// Function to fetch the sales data for the selected year from the backend
+      function fetchSalesData(year) {
+        console.log("HHHHHHHHH")
+        return fetch('/admin/getSalesData', {
+
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ year }),
+        })
+        .then(response => response.json())
+        
+        .then(data => {
+          console.log(data,"nihal babu")
+          return data.salesData
+        })
+        .catch(error => {
+          console.error('Error fetching sales data:', error);
+        });
+      }
+// Function to update the chart with the fetched sales data
+      function updateChart(salesData) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+        // Extract the sales totals for each month from the sales data
+        const totals = months.map(month => salesData[month] || 0);
+  
+        // Update the chart using bar.data and salesChart.update() method
+        bar.data.labels = months;
+        bar.data.datasets[0].data = totals;
+        bar.update();
+      }
+  
+      // Initial setup of the chart
+      function initializeChart() {
+        const initialYear = yearFilter.value;
+  
+        // Fetch the sales data for the initial year from the backend
+        fetchSalesData(initialYear)
+          .then(salesData => {
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const totals = labels.map(month => salesData[month] || 0);
+  
+            // Create the chart
+            bar = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: 'Monthly Sales',
+                  data: totals,
+                  backgroundColor: 'rgba(75, 192, 192, 0.6)', // Set the bar color
+                }],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    // You can customize the y-axis options here
+                  },
+                },
+              },
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching sales data:', error);
+          });
+      }
+  
+      // Initialize the chart
+      initializeChart();
+    });
+  </script>
 </body>
+
+<script src="../js/admin-js/siqtheme.js"></script>
+<script src="../js/admin-js/dashboard1.js"></script>
+<script src="../../assets/js/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+var elementTotalCancelled = `<%- JSON.stringify(totalCancelled) %>`;
+
+  // var percentagePaymentData = JSON.parse(percentagePayment);
+  const ctx = document.getElementById('polarArea');
+
+  
+  var elementTotalShipped =  document.getElementById("totalShipped")
+  var elementOrderCount = document.getElementById("orderCount")
+
+
+  var totalCancelled = elementTotalCancelled;
+  var totalShipped =  elementTotalShipped.textContent
+  var orderCount =  elementOrderCount.textContent
+
+  console.log(totalCancelled);
+  console.log(totalShipped);
+  console.log(orderCount);
+
+  new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+      labels: ['Cancelled', 'Orders', 'Shipped'],
+      datasets: [{
+        label: '# of Votes',
+        data: [totalCancelled, orderCount, totalShipped],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<!-- <script>
+const salesData = [
+  { month: 'January', total: 100 },
+  { month: 'February', total: 130 },
+  { month: 'March', total: 250 },
+  { month: 'April', total: 150 },
+  { month: 'May', total: 550 },
+  { month: 'June', total: 250 },
+  { month: 'July', total: 50 },
+  { month: 'August', total: 650 },
+  { month: 'September', total: 150 },
+  { month: 'October', total: 1500 },
+  { month: 'November', total: 150 },
+  { month: 'December', total: 150 },
+  // Add more data for other months
+];
+
+// Extract the month labels and sales totals from the data
+const labels = salesData.map(item => item.month);
+const totals = salesData.map(item => item.total);
+
+const ctr = document.getElementById('bar').getContext('2d');
+const bar = new Chart(ctr, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Monthly Sales',
+      data: totals,
+      backgroundColor: 'rgba(75, 192, 192, 0.6)', // Set the bar color
+    }],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        // You can customize the y-axis options here
+      },
+    },
+  },
+});
+
+
+</script> -->

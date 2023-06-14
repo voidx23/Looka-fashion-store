@@ -1,0 +1,323 @@
+
+    <% function getTotalQuantity(products) { %>
+      <% let total = 0 %>
+      <% products.forEach(product => { %>
+        <% total += product.quantity %>
+      <% }) %>
+      <%= total %>
+    <% } %>
+  
+  
+  
+  
+  <style>
+    .container {
+      max-width: 1200px;
+    }
+  
+    .card-header {
+  
+      font-weight: bold;
+    }
+  
+    .card {
+      border-radius: 5px;
+    }
+  
+    .product-image {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    .strike-text {
+      text-decoration: line-through;
+    }
+  
+    .spec-1 span {
+      margin-right: 10px;
+    }
+  
+    .dot::before {
+      content: "\2022";
+      color: #bdbdbd;
+      margin-right: 5px;
+      margin-left: 5px;
+      font-weight: bold;
+    }
+  
+    .bg-dark-subtle {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  
+    .bg-opacity-50 {
+      opacity: 0.5;
+    }
+  
+    .btn {
+      border-radius: 25px;
+    }
+  
+    .btn-info {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+    }
+  
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+  
+    .btn-outline-secondary {
+      color: #6c757d;
+      border-color: #6c757d;
+    }
+  
+    .form-select {
+      font-size: 14px;
+    }
+  
+    @media (max-width: 576px) {
+      .card-body {
+        padding: 5px;
+      }
+  
+      .product-image {
+        height: 80px;
+      }
+  
+      .spec-1 span {
+        margin-right: 5px;
+      }
+  
+      .dot::before {
+        margin-right: 3px;
+        margin-left: 3px;
+        font-size: 12px;
+      }
+    }
+     .nav-link:hover {
+      color: white;
+      background-color: #6c757d;
+      text-decoration: none;
+    }
+  </style>
+
+  
+  <div class="container mt-5 mb-5 p-0">
+  
+  
+      <div class="col-md-12 " style="border-radius: 20px;">
+        <% locals.orders.forEach(element=> { %>
+          <div class="card border border-2">
+
+            <button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/invoice';">Invoice</button>
+           
+            <% element.products.forEach(prd=> { %> 
+  
+             <div class="card-body border border-2 " ">
+                <div class="row  bg-white "style="border: 1px solid black;">
+                  <div class="col-md-2" style="padding: 0;"><img class="img-fluid img-responsive product-image"
+                      src="/uploads/<%= prd.item.images[0] %>" style="height: 155px; width: 120px"></div>
+                  <div class="col-md-6 pt-3">
+                    <h5 style="font-size: 1.2vw;"><b>
+                        <%= prd.item.name%>
+                      </b></h5>
+                    <div class="d-flex flex-row">
+  
+                    </div>
+
+                    <p class="text-justify text-truncate para mb-0">Size : <%= prd.size %><br></p>
+  
+                    <p class="text-justify text-truncate para mb-0">Quantity : <%= prd.quantity %><br></p>
+                    <h6 class="m-0"><span class="fw-medium">order-status :</span>
+                       
+                          <span style="color: rgb(3, 167, 3);">  <%= element.deliverystatus %></span>
+                         
+                      </span> <br>Payment Status:
+                      <% if (element.paymentstatus == "failed") { %>
+                        <span style="color: rgb(255, 0, 0);"><%= element.paymentstatus %></span>
+                      <% } else if (element.paymentstatus == "pending") { %>
+                        <span style="color: orange;"><%= element.paymentstatus %></span>
+                      <% }else {%>
+
+                        <span style="color: orange;"><%= element.paymentstatus %></span>
+
+                      <%}%>
+                      
+                       </h6>
+                  </div>
+                  <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                    <!-- <div class="d-flex flex-row align-items-center">
+                                <h4 class="mr-1">Rs. <%#= prd.item.salePrice %></h4><span class="strike-text"></span>                     
+                            </div> -->
+                    
+                    <div class="d-flex flex-column mt-4">
+                      <% if (prd.deliverystatus !=='returned') { %>
+                       
+                              
+  
+                              <%
+                              if (element.deliverystatus === 'delivered') {%>
+                               
+                             
+                              
+                                <% if (locals.diffDays <= 7) { %>
+                            
+                          <button class="btn btn-danger btn-sm mt-2"
+                            onclick="returnOrder('<%= element._id %>','<%= prd.item._id %>')" type="button">Return order
+                          </button>
+                    </div>
+                    <%}%>
+                    <% } else if(element.deliverystatus == " waiting for return confirmation"){ %>
+                      
+                      <h6 style="color: red; margin-top: 30px;margin-left: 50px;">Returned</h6>
+                      
+                      <% }  else if(element.paymentstatus!=="failed"){  %>
+
+                        <button class="btn btn-danger  mt-2" <%=prd.orderstatus==='cancelled' ? 'hidden' : '' %>
+                          onclick="cancelOrder('<%= element._id %>','<%= prd.item._id %>')" type="button" >Cancel order
+                        </button>
+                        <%}%>
+                    
+                  </div>
+                  <% } %>
+                    
+  
+  
+                </div>
+              </div>
+              <div class=" d-flex justify-content-around text-dark">
+                <span> Order Summary</span>
+                <span><%= element.paymentstatus %> on
+
+                  <% if (element.deliverystatus =='delivered' ) { %>
+                    <%= new Date(element.deliveryDate).toLocaleString('en-US', { month: 'short' , day: 'numeric' ,
+                      year: 'numeric' , hour12: true }) %>
+                      <% } else{ %>
+                        <%= new Date(element.createdAt).toLocaleString('en-US', { month: 'short' , day: 'numeric' ,
+                      year: 'numeric' , hour12: true }) %>
+
+                        <%}%>
+                      </span>
+
+                <!-- <span> Address : <%= element.deliveryDetails.streetaddress %></span> -->
+                <span> Total: &#8377; <%= element.totalAmount %> </span>
+                
+              </div>
+          </div>
+  
+          <% }) %>
+          
+      </div>
+      <br>
+      
+      <% }) %>
+  
+    </div>
+  
+  </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+  
+  function cancelOrder(orderId, productId) {
+  // Display a confirmation SweetAlert message
+ 
+  swal({
+    title: "Confirmation",
+    text: "Are you sure you want to proceed?",
+    icon: "info",
+    buttons: ["Cancel", "Confirm"],
+    dangerMode: true,
+    closeOnClickOutside: false,
+    closeOnEsc: false,
+    customClass: {
+      container: 'my-swal-container',
+      content: 'my-swal-content',
+      title: 'my-swal-title',
+      cancelButton: 'my-swal-cancel-button',
+      confirmButton: 'my-swal-confirm-button'
+    },
+   
+  
+  })
+  .then((willCancel) => {
+  if (willCancel) {
+    const reasonInput = document.querySelector('.swal-content__input'); // Get the input element
+    // const reason = reasonInput.value; // Retrieve the input value
+
+    // Redirect to the cancel order page if the user confirms the cancellation
+    location.href = `/cancelOrder/?orderId=${orderId}&productId=${productId}`;
+    // location.href = `/cancelOrder/?orderId=${orderId}&productId=${productId}&reason=${reason}`;
+  }
+});
+
+}
+
+function returnOrder(orderId, productId) {
+    swal({
+      title: "Confirmation",
+      text: "Are you sure you want to proceed?",
+      icon: "info",
+      buttons: ["Cancel", "Confirm"],
+      dangerMode: true,
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      customClass: {
+        container: 'my-swal-container',
+        content: 'my-swal-content',
+        title: 'my-swal-title',
+        cancelButton: 'my-swal-cancel-button',
+        confirmButton: 'my-swal-confirm-button'
+    }, // Add an input field for the reason
+    content: {
+      element: "input",
+      attributes: {
+        placeholder: "Enter reason",
+        type: "text",
+      },
+    },
+  
+  })
+      .then((willCancel) => {
+        if (willCancel) {
+           const reasonInput = document.querySelector('.swal-content__input'); // Get the input element
+    const reason = reasonInput.value; // Retrieve the input value
+          // Redirect to the cancel order page if the user confirms the cancellation
+          location.href = `/return-order/?orderId=${orderId}&productId=${productId}&reason=${reason}`;
+        }
+      });
+  }
+
+// function cancelOrder(orderId, productId) {
+//       // Display a confirmation SweetAlert message
+//       swal({
+//         title: "Confirmation",
+//         text: "Are you sure you want to proceed?",
+//         icon: "info",
+//         buttons: ["Cancel", "Confirm"],
+//         dangerMode: true,
+//         closeOnClickOutside: false,
+//         closeOnEsc: false,
+//         customClass: {
+//           container: 'my-swal-container',
+//           content: 'my-swal-content',
+//           title: 'my-swal-title',
+//           cancelButton: 'my-swal-cancel-button',
+//           confirmButton: 'my-swal-confirm-button'
+//         }})
+//         .then((willCancel) => {
+//           if (willCancel) {
+//             // Redirect to the cancel order page if the user confirms the cancellation
+//             location.href = `/cancel-order/?orderId=${orderId}&productId=${productId}`;
+//           }
+//         });
+//     }
+  </script>

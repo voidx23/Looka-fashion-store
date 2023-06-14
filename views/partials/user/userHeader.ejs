@@ -1,4 +1,10 @@
 <body>
+   <style>
+      .nav-link{
+         font-size: 13px;
+         font-weight: 500;
+      }
+   </style>
     <div class="hero_area">
        <!-- header section strats -->
        <header class="header_section" style="border-bottom: 1px solid black;">
@@ -52,6 +58,7 @@
                             
                            <% if (locals.userloggedIn) { %>
                               <span class="nav-label"><%=locals.username  %> <span class="caret"></span></span>
+                              
                               <% } else { %>
                                  <span class="nav-label">Account <span class="caret"></span></span>
 
@@ -61,7 +68,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <% if (locals.userloggedIn) { %>
-                              <li class="dropdown-item"><a href="/logout">Logout</a></li>
+                              <li class = "dropdown-item"> <a href="/userProfile">My profile</a></li>
+                           
 
                             <% } else { %>
                               <li class="dropdown-item"><a href="/login">Login</a></li>
@@ -98,7 +106,7 @@
                            
                         </a>
                         
-                         <i class="fa fa-search nav_search-btn" aria-hidden="true"></i>
+                        
                         
                          
                       </form>
