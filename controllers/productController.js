@@ -153,7 +153,16 @@ exports.editProduct = async (req, res) => {
 
       // Only update images if new files are uploaded
       if (req.files && req.files.length > 0) {
-        updatedFields.images = req.files.map((file) => file.filename);
+        updatedFields.images = await Promise.all(
+          req.files.map(async (file) => {
+            const croppedImage = `cropped_${file.filename}`;
+            await sharp(file.path)
+              .resize(500, 500) // Set the desired crop size
+              .toFile(`C:/Users/Nihal Mohamed Bashir/Desktop/looka/public/uploads/${croppedImage}`);
+            return croppedImage;
+          })
+        );
+
       } else {
         updatedFields.images = product.images; // Keep the existing images
       }

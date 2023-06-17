@@ -6,6 +6,7 @@ const User = require("../models/userSchema");
 const ObjectId = mongoose.Types.ObjectId;
 const Address = require("../models/addressSchema");
 const Product = require("../models/productSchema");
+const Coupon = require("../models/couponSchema");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
@@ -262,6 +263,12 @@ exports.getOrderStatus = async (req, res) => {
       })
 
     }
+
+
+
+
+
+
     var deliveryDate = new Date(orders[0].deliveryDate);
     console.log(deliveryDate, "👌👌👌👌👌");
     var currentDate = new Date();
@@ -311,7 +318,8 @@ exports.getOrderStatus = async (req, res) => {
       cartCount,
       username,
       userloggedIn: req.session.userloggedIn,
-      diffDays
+      diffDays,
+
 
     });
   }

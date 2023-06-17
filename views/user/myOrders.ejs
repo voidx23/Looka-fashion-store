@@ -199,9 +199,15 @@
 
                         <%}%>
                       </span>
+                      <% if (element.discount ) { %>
+                        <span> Total: &#8377; <%= element.totalAmount - element.discount %> </span>
+                      <% } else{ %>
+                        <span> Total: &#8377; <%= element.totalAmount %> </span>
 
+                        <%}%>
                 <!-- <span> Address : <%= element.deliveryDetails.streetaddress %></span> -->
-                <span> Total: &#8377; <%= element.totalAmount %> </span>
+
+               
                 
               </div>
           </div>

@@ -2,7 +2,15 @@
          <!-- slider section -->
          <section class="slider_section ">
             <div class="slider_bg_box">
-               <img src="images/slider-bg.jpg" alt="">
+               <% if (locals.banner) { %>
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <div class="banner__pic d-flex justify-content-center">
+                           <img src="/uploads/<%= banner[0].imgName %>" alt="" style="height: 99vh; width: 100%; object-fit: cover;">
+                        </div>
+                     </div>
+                  </div>
+                  <% } %>
             </div>
             <div id="customCarousel1" class="carousel slide" data-ride="carousel">
                <div class="carousel-inner">
@@ -11,27 +19,14 @@
                         <div class="row">
                            <div class="col-md-7 col-lg-6 ">
                               <div class="detail-box">
-                                 <h1>
-                                    <span>
-                                    Sale 20% Off
-                                    </span>
-                                    <br>
-                                    On Everything
-                                 </h1>
-                                 <p>
-                                    Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
-                                 </p>
-                                 <div class="btn-box">
-                                    <a href="/productMen" class="btn1">
-                                    Shop Now
-                                    </a>
-                                 </div>
+                                
+                                
                               </div>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div class="carousel-item ">
+                  <!-- <div class="carousel-item ">
                      <div class="container ">
                         <div class="row">
                            <div class="col-md-7 col-lg-6 ">
@@ -55,8 +50,8 @@
                            </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="carousel-item">
+                  </div> -->
+                  <!-- <div class="carousel-item">
                      <div class="container ">
                         <div class="row">
                            <div class="col-md-7 col-lg-6 ">
@@ -80,19 +75,19 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                </div>
                <div class="container">
                   <ol class="carousel-indicators">
-                     <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
-                     <li data-target="#customCarousel1" data-slide-to="1"></li>
-                     <li data-target="#customCarousel1" data-slide-to="2"></li>
+                    
                   </ol>
                </div>
             </div>
          </section>
          <!-- end slider section -->
+        
       </div>
+      <br><br><br>
       <!-- why section -->
       <section class="why_section layout_padding">
          <div class="container">
@@ -343,32 +338,29 @@
       <!-- end why section -->
       
       <!-- arrival section -->
-      <section class="arrival_section">
-         <div class="container">
+      <section class="arrival_section" style="background-color: transparent !important;">
+         <div class="container-fluid">
             <div class="box">
                <div class="arrival_bg_box">
-                  <img src="images/arrival-bg.png" alt="">
-               </div>
-               <div class="row">
-                  <div class="col-md-6 ml-auto">
-                     <div class="heading_container remove_line_bt">
-                        <h2>
-                           #NewArrivals
-                        </h2>
+                  <% if (locals.banner) { %>
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <div class="banner__pic d-flex justify-content-center">
+                           <img src="/uploads/<%= banner[1].imgName %>" alt="" style="height: 99vh; width: 90%; object-fit: cover;">
+                        </div>
                      </div>
-                     <p style="margin-top: 20px;margin-bottom: 30px;">
-                        Vitae fugiat laboriosam officia perferendis provident aliquid voluptatibus dolorem, fugit ullam sit earum id eaque nisi hic? Tenetur commodi, nisi rem vel, ea eaque ab ipsa, autem similique ex unde!
-                     </p>
-                     <a href="/productMen">
-                     Shop Now
-                     </a>
                   </div>
+                  <% } %>
                </div>
             </div>
          </div>
       </section>
-      <!-- end arrival section -->
       
+      
+      <!-- end arrival section -->
+     <div style="height: 50vh;">
+       
+     </div>
       <!-- product section -->
       <section class="product_section layout_padding">
          <div class="container">

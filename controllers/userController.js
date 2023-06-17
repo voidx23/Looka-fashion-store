@@ -1,10 +1,12 @@
-const bcrypt = require('bcrypt')
-const User = require('../models/userSchema')
-const Product = require("../models/productSchema")
-const Order = require("../models/orderSchema")
-const Categories = require("../models/categorySchema")
-const Address = require("../models/addressSchema")
-const Wallet = require("../models/walletSchema")
+const bcrypt = require('bcrypt');
+const User = require('../models/userSchema');
+const Product = require("../models/productSchema");
+const Order = require("../models/orderSchema");
+const Categories = require("../models/categorySchema");
+const Address = require("../models/addressSchema");
+const Wallet = require("../models/walletSchema");
+const Banner = require("../models/bannerSchema");
+const Offer = require("../models/offerSchema");
 const mongoose = require("mongoose");
 const otp = require('../controllers/otp');
 const { cartCount } = require('./shoppingCartController');
@@ -45,7 +47,7 @@ exports.postSignup = async (req, res, next) => {
       const newWallet = new Wallet({
         userId: userId,
         balance: 0,
-        
+
       })
 
 
@@ -282,8 +284,9 @@ exports.index = async function (req, res, next) {
     var cartCount = req.cartCount;
     const user = req.session.user || ''
     const username = user.name;
+    const banner = await Banner.find({ currentBanner: true })
 
-    res.render('user/index', { userloggedIn: req.session.userloggedIn, products, cartCount, username })
+    res.render('user/index', { userloggedIn: req.session.userloggedIn, products, cartCount, username, banner })
   } catch (error) {
     console.log(error);
   }
@@ -298,9 +301,10 @@ exports.main = async function (req, res, next) {
     console.log(cartCount)
     const user = req.session.user || ''
     const username = user.name;
+    const banner = await Banner.find({ currentBanner: true })
 
 
-    res.render('user/index', { userloggedIn: req.session.userloggedIn, products, cartCount, username })
+    res.render('user/index', { userloggedIn: req.session.userloggedIn, products, cartCount, username, banner })
   } catch (error) {
     console.log(error);
   }
@@ -439,6 +443,7 @@ exports.home = async function (req, res, next) {
     const pattern = await Categories.find({ categoryname: "Pattern" });
     const productType = await Categories.find({ categoryname: "productType" });
     const productCategory = await Categories.find({ categoryname: "productCategory" });
+
     const page = parseInt(req.query.page) || 1;
     const perPage = 9;
     const docCount = await Product.countDocuments({});

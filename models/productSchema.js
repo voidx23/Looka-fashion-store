@@ -2,68 +2,79 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const productSchema = new Schema({
-    name:{
-        type : String,
-        require : true
+  name: {
+    type: String,
+    require: true
+  },
+  gender: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  moreInfo: {
+    type: String,
+    required: true
+  },
+  color: {
+    type: String,
+    required: true
+  },
+  pattern: {
+    type: String,
+    required: true
+  },
+  productType: {
+    type: String,
+    required: true
+  },
+  productCategory: {
+    type: String,
+    required: true
+  },
+
+  price: {
+    type: Number,
+    required: true
+  },
+  offerprice: {
+    type: Number,
+
+  },
+
+  offerStatus: {
+    type: Boolean,
+    default: false,
+    required: true,
+
+  },
+  Quantity: {
+    type: Object,
+    small: {
+      type: Number,
     },
-    gender:{
-        type : String,
-        required : true
+    medium: {
+      type: Number,
     },
-    description:{
-        type : String,
-        required : true
+    large: {
+      type: Number,
     },
-    moreInfo:{
-        type: String,
-        required : true
+    extraLarge: {
+      type: Number,
     },
-    color:{
-        type : String,
-        required : true
-    },
-    pattern:{
-        type: String,
-        required: true
-    },
-    productType:{
-        type: String,
-        required: true
-    },
-    productCategory:{
-        type: String,
-        required: true
-    },
-   
-    price:{
-        type : Number,
-        required : true
-    },
-    Quantity: {
-        type: Object,
-        small: {
-          type: Number,
-        },
-        medium: {
-          type: Number,
-        },
-        large: {
-          type: Number,
-        },
-        extraLarge: {
-          type: Number,
-        },
-      },
-    isActive: {
-        type: Boolean,
-        default: true,
-        required: true,
-      },
-    images:[
-        { type : String }
-    ]
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+    required: true,
+  },
+  images: [
+    { type: String }
+  ]
 })
 
 //model name: "Product" will be used to turn into a collection name in DB
 //"Product" => 'product' + 's' => products
-module.exports = mongoose.model('Product',productSchema)
+module.exports = mongoose.model('Product', productSchema)

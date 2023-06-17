@@ -404,20 +404,49 @@
       <div class="row">
         <% for (let i=0; i<products.length; i++){%>
           <% if (products[i].isActive) { %>
-            <div class="col-sm-6 col-md-4 col-lg-4 product-item" data-producttype="<%= products[i].productType %>" data-color="<%= products[i].color %>" data-pattern="<%= products[i].pattern %>" data-category="<%= products[i].category %>">
-              <div class="box d-flex flex-column justify-content-center align-items-center" style="max-height: 400px; min-height: 390px; margin-top: 0; padding-top: 0; padding-bottom: 0;">
-                <div class="option_container">
-                  <div class="options">
-                    <a href="/productDetail/<%= products[i].id %>" class="option1">View Product</a>
+            <% if (products[i].offerStatus) { %>
+              <div class="col-sm-6 col-md-4 col-lg-4 product-item" data-producttype="<%= products[i].productType %>" data-color="<%= products[i].color %>" data-pattern="<%= products[i].pattern %>" data-category="<%= products[i].category %>">
+                <div class="box d-flex flex-column justify-content-center align-items-center" style="max-height: 400px; min-height: 390px; margin-top: 0; padding-top: 0; padding-bottom: 0;">
+                  <div class="option_container">
+                    <div class="options">
+                      <a href="/productDetail/<%= products[i].id %>" class="option1">View Product</a>
+                    </div>
+                  </div>
+                  <div class="img-box">
+                    <img style="min-width: 200px; min-height: 240px; margin-bottom: 30px;" src="/uploads/<%= products[i].images[0] %>" alt="" />
+                  </div>
+                  <p style="font-size: 13px; position: relative;"><%= products[i].name %></p>
+                
+                    <h5 style="margin-top: 5px">
+                      ₹<%= products[i].price - (products[i].price * (products[i].offerprice/100)) %>
+                      <span style="text-decoration: line-through; font-size: medium;color: gray;">₹<%= products[i].price %></span>
+                     
+                    </h5>
+                    <p style="color: rgb(236, 10, 10); font-size: 12px; font-weight: 500;">(<%= products[i].offerprice %>% off)</p>
+              
+                </div>
+              </div>
+              
+
+
+              <% } else{ %>
+
+                <div class="col-sm-6 col-md-4 col-lg-4 product-item" data-producttype="<%= products[i].productType %>" data-color="<%= products[i].color %>" data-pattern="<%= products[i].pattern %>" data-category="<%= products[i].category %>">
+                  <div class="box d-flex flex-column justify-content-center align-items-center" style="max-height: 400px; min-height: 390px; margin-top: 0; padding-top: 0; padding-bottom: 0;">
+                    <div class="option_container">
+                      <div class="options">
+                        <a href="/productDetail/<%= products[i].id %>" class="option1">View Product</a>
+                      </div>
+                    </div>
+                    <div class="img-box">
+                      <img style="min-width: 200px; min-height: 240px; margin-bottom: 30px;" src="/uploads/<%= products[i].images[0] %>" alt="" />
+                    </div>
+                    <p style="font-size: 13px; position: relative;"><%= products[i].name %></p>
+                    <h5 style="margin-top: 5px">₹<%= products[i].price %></h5>
                   </div>
                 </div>
-                <div class="img-box">
-                  <img style="min-width: 200px; min-height: 240px; margin-bottom: 30px;" src="/uploads/<%= products[i].images[0] %>" alt="" />
-                </div>
-                <p style="font-size: 13px; position: relative;"><%= products[i].name %></p>
-                <h5 style="margin-top: 5px">₹<%= products[i].price %></h5>
-              </div>
-            </div>
+                <%}%>
+           
           <% } %>
         <% } %>
       </div>

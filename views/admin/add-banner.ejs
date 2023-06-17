@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+    <title>Admin Panel</title>
+
+    <link href="/css/admin-css/app.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-VyvYODdTX5thOk83L98f3Cg4e85t2DwHEbJGyyWzS8KvRfuLdp57nX9pLW7D8RmZuV7w+MxZu3qLrTqzwu0Qng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS -->
+<style>
+  form {
+    max-width: 500px;
+    margin: auto;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  select,
+  input[type="text"],
+  textarea,
+  input[type="number"],
+  input[type="file"] {
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+    color: #fff;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="/admin">
+            <span class="align-middle">Admin Panel</span>
+          </a>
+
+          <ul class="sidebar-nav">
+            <!-- <li class="sidebar-header">Pages</li> -->
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin">
+                <i class="align-middle" data-feather="monitor"></i>
+                <span class="align-middle">Dashboard</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item active">
+              <a class="sidebar-link" href="/admin/products">
+                <i class="align-middle" data-feather="shopping-bag"></i>
+                <span class="align-middle">Products</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/categoryView">
+                <i class="align-middle" data-feather="layers"></i>
+                <span class="align-middle">Category</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/user?page=1">
+                <i class="align-middle" data-feather="users"></i>
+                <span class="align-middle">Users</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orderStatus">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Order Status</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesReport">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Sales Report</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupon">
+                <i class="align-middle" data-feather="command"></i>
+                <span class="align-middle">Coupons</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers">
+                <i class="align-middle" data-feather="command"></i>
+                <span class="align-middle">Offers</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/banner">
+                <i class="align-middle" data-feather="bookmark"></i>
+                <span class="align-middle">Banner</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav navbar-align">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a
+                  class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="../images/login-images/avatar.jpg"
+                    class="avatar img-fluid rounded me-1"
+                    alt="Charles Hall"
+                  />
+                  <span class="text-dark">Admin</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="pages-profile.html"
+                    ><i class="align-middle me-1" data-feather="user"></i>
+                    Profile</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="align-middle me-1" data-feather="pie-chart"></i>
+                    Analytics</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="index.html"
+                    ><i class="align-middle me-1" data-feather="settings"></i>
+                    Settings & Privacy</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i
+                      class="align-middle me-1"
+                      data-feather="help-circle"
+                    ></i>
+                    Help Center</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content">
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <form action="/admin/add-banner" id="add-banner" method="post" enctype="multipart/form-data">
+                <h4 class="text-center py-4">Add New Banner</h4>
+                <div class="form-group">
+                    <label for="categoryName">Banner Name</label>
+                    <input type="text" class="form-control" id="banner-name" name="name"
+                        placeholder="Enter banner name">
+                </div>
+
+                <div class="d-flex justify-content-center" id="image-preview">
+                    <!-- append image here -->
+                </div>
+
+                <div class="form-group">
+                    <label for="banner-img">Banner Image</label>
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" name="bannerImg"
+                        class="form-control" id="banner-img">
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="button" onclick="goBack()" class="btn btn-primary mx-3">Cancel</button>
+                    <button type="submit" class="btn btn-success mx-3 ">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+        </div>
+</main>
+</div>
+</div>
+</body>
+</html>
+
+<script>
+       function goBack() {
+                location.replace('/admin/banner')
+            }
+</script>

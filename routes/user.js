@@ -7,7 +7,7 @@ const addressController = require('../controllers/addressController')
 const orderController = require('../controllers/orderController')
 
 const filterController = require('../controllers/filterController');
-
+const couponController = require('../controllers/couponController')
 const productController = require('../controllers/productController');
 const { userauth, verify } = require('../controllers/userMiddlewares');
 
@@ -65,30 +65,7 @@ router.get('/checkUserSession', (req, res) => {
     res.json({ isAuthenticated: false });
   }
 });
-// router.get('/otp', function(req,res, next){
-//   res.render('user/otpVerification',{noShow:true})
-// })
 
-
-// router.get('/page',function(req,res,next){
-//   res.render('user/product-test')
-// })
-// router.get('/',userauth ,function(req, res, next) {
-//   // let user = req.session.user;
-//   res.render('user/index',{userloggedIn:req.session.userloggedIn});
-// });
-
-// router.get('/home',verify ,function(req, res, next) {
-
-//   res.render('user/index',{userloggedIn:req.session.userloggedIn});
-// });
-// router.get('/productDetail',function(req,res,next){
-//   res.render('user/productDetail')
-// })
-
-// router.get('/shoppingCart',function(req,res,next){
-//   res.render('user/shoppingCart')
-// })
 
 router.get('/orderPlaced', verify, shoppingCartController.cartCount, shoppingCartController.orderPlaced)
 
@@ -112,10 +89,7 @@ router.get('/userProfile', verify, shoppingCartController.cartCount, userControl
 
 
 
-// router.get("/postfilter",filterController.getAllCategory,filterController.getFilter,filterController.productList)
-// router.post("/postfilter", filterController.postFilter, filterController.productFilterList)
-// router.get('/productWomen',userau  th,userController.Women)
-// router.get('/shoppingCart',)
+
 router.get("/filter-products", filterController.filterproducts)
 router.get('/shop/search/suggestions/', filterController.search)
 router.get('/search', filterController.searching)
@@ -136,7 +110,8 @@ router.get("/invoice/:id", verify, shoppingCartController.cartCount, orderContro
 router.post('/verify-payment', userController.paymentVerify)
 router.get('/payment-failed', userController.paymentFailed)
 
-
+//coupon management route.
+router.post('/apply-coupon', couponController.applyCoupon)
 
 //checkout
 router.get('/address', shoppingCartController.cartCount, addressController.deliveryAddress)

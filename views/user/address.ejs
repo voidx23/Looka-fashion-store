@@ -550,6 +550,13 @@
                           </div>
                         </div>
                       </div>
+                      <div class="custom-control-inline">
+                        <div class="form-group">
+                          <div class="radio">
+                            <label><input type="radio" name="payment-method" value="Wallet" class="mr-2"> Wallet</label>
+                          </div>
+                        </div>
+                      </div>
   
                       <div class="form-group">
                         <div class="col-md-12">
@@ -645,12 +652,14 @@
       $("#checkout-form").submit((e) => {
         
         e.preventDefault();
-
+        const couponAmount = $("#couponDiscount").text().trim();
+        const formData = $('#checkout-form').serializeArray();
+        formData.push({ name: 'couponAmount', value: couponAmount });
       
         $.ajax({
           url: '/address',
           method: 'post',
-          data: $('#checkout-form').serialize(),
+          data: formData,
           
           success: (response) => {
             // alert(response);
@@ -659,13 +668,39 @@
             //  console.log('Redirecting to /orderPlaced');
               location.href = "/orderPlaced";
   
-            } else if (response.payment) {
-              // hideLoader()
+            } else if(response.walletSuccess){
+
+              location.href = "/orderPlaced";
+
+            }else if(response.emptyWallet){
+
+              console.log("emptywallet");
+
+              Swal.fire({
+                                title: "Insufficient Funds",
+                                text: "Your Wallet is not enough to buy these Clothes",
+                                icon: "error",
+                                showCancelButton: true,
+                                cancelButtonText: "Cancel",
+                                confirmButtonText: "Check My Wallet",
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Redirect to the wallet page
+                                    window.location.href = "/savedAddress";
+                                }
+                            });
+
+            }
+            // else if (response.payment) {
+            //   // hideLoader()
   
-              console.log(response.payment, 'payment payapal');
-              window.location.href = response.payment.links[1].href
+            //   console.log(response.payment, 'payment payapal');
+            //   window.location.href = response.payment.links[1].href
   
-            } else {
+            // }
+             else {
               // hideLoader()
               razorpayPayment(response)
             }
@@ -676,7 +711,7 @@
 
 
       function razorpayPayment(order) {
-//  console.log("ghghghghghghghasdfghjkhgfdsdfy");
+ console.log("ghghghghghghghasdfghjkhgfdsdfy");
         var options = {
   
           "key": "rzp_test_YBSF7JaBiTjl5N", // Enter the Key ID generated from the Dashboard
@@ -789,8 +824,15 @@
                 
   
                 //  document.getElementById("taxWithTotal").innerHTML = total;
-  
-              } else if (response.success == true) {
+                
+
+              } else if(response.excess == true) {
+                document.getElementById("message").innerHTML = response.message;
+                alertify.set('notifier', 'delay', 5);
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error('Discount exceeds purchase amount');
+              }
+               else if (response.success == true) {
                 console.log(response.discountAmount);
                 console.log(response.cartTotal, '/////////');
                 console.log(response.cartTotal-response.discountAmount,'????????')
@@ -816,5 +858,4 @@
   
       }
   
-  
-    </script>
+</script>

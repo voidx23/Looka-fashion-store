@@ -1,128 +1,386 @@
-<body>
-  <div class="wrapper">
-    <nav id="sidebar" class="sidebar js-sidebar">
-      <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="/admin">
-          <span class="align-middle">Admin Panel</span>
-        </a>
 
-        <ul class="sidebar-nav">
-          <!-- <li class="sidebar-header">Pages</li> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5"
+    />
+    <meta name="author" content="AdminKit" />
+    <meta
+      name="keywords"
+      content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+    />
 
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin">
-              <i class="align-middle" data-feather="monitor"></i>
-              <span class="align-middle">Dashboard</span>
-            </a>
-          </li>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin/products">
-              <i class="align-middle" data-feather="shopping-bag"></i>
-              <span class="align-middle">Products</span>
-            </a>
-          </li>
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin/categoryView">
-              <i class="align-middle" data-feather="layers"></i>
-              <span class="align-middle">Category</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin/user?page=1">
-              <i class="align-middle" data-feather="users"></i>
-              <span class="align-middle">Users</span>
-            </a>
-          </li>
+    <title>Admin Panel</title>
 
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin/orderStatus">
-              <i class="align-middle" data-feather="package"></i>
-              <span class="align-middle">Order Status</span>
-            </a>
-          </li>
+    <link href="/css/admin-css/app.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-VyvYODdTX5thOk83L98f3Cg4e85t2DwHEbJGyyWzS8KvRfuLdp57nX9pLW7D8RmZuV7w+MxZu3qLrTqzwu0Qng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin/salesReport">
-              <i class="align-middle" data-feather="package"></i>
-              <span class="align-middle">Sales Report</span>
-            </a>
-          </li>
+<!-- Custom CSS -->
+<style>
+  form {
+    max-width: 500px;
+    margin: auto;
+  }
 
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin/coupons">
-              <i class="align-middle" data-feather="command"></i>
-              <span class="align-middle">Coupons</span>
-            </a>
-          </li>
-          <li class="sidebar-item active">
-            <a class="sidebar-link" href="/admin/banner">
-              <i class="align-middle" data-feather="bookmark"></i>
-              <span class="align-middle">Banner</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  label {
+    font-weight: bold;
+  }
 
-    <div class="main">
-      <nav class="navbar navbar-expand navbar-light navbar-bg">
-        <a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i>
-        </a>
+  select,
+  input[type="text"],
+  textarea,
+  input[type="number"],
+  input[type="file"] {
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+  }
 
-        <div class="navbar-collapse collapse">
-          <ul class="navbar-nav navbar-align">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-icon dropdown-toggle d-inline-block d-sm-none"
-                href="#"
-                data-bs-toggle="dropdown"
-              >
-                <i class="align-middle" data-feather="settings"></i>
+  button[type="submit"] {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+    color: #fff;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+          <a class="sidebar-brand" href="/admin">
+            <span class="align-middle">Admin Panel</span>
+          </a>
+
+          <ul class="sidebar-nav">
+            <!-- <li class="sidebar-header">Pages</li> -->
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin">
+                <i class="align-middle" data-feather="monitor"></i>
+                <span class="align-middle">Dashboard</span>
               </a>
+            </li>
 
-              <a
-                class="nav-link dropdown-toggle d-none d-sm-inline-block"
-                href="#"
-                data-bs-toggle="dropdown"
-              >
-                <img
-                  src="../images/login-images/avatar.jpg"
-                  class="avatar img-fluid rounded me-1"
-                  alt="Charles Hall"
-                />
-                <span class="text-dark">Admin</span>
+            <li class="sidebar-item active">
+              <a class="sidebar-link" href="/admin/products">
+                <i class="align-middle" data-feather="shopping-bag"></i>
+                <span class="align-middle">Products</span>
               </a>
-              <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" href="pages-profile.html"
-                  ><i class="align-middle me-1" data-feather="user"></i>
-                  Profile</a
-                >
-                <a class="dropdown-item" href="#"
-                  ><i class="align-middle me-1" data-feather="pie-chart"></i>
-                  Analytics</a
-                >
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="index.html"
-                  ><i class="align-middle me-1" data-feather="settings"></i>
-                  Settings & Privacy</a
-                >
-                <a class="dropdown-item" href="#"
-                  ><i class="align-middle me-1" data-feather="help-circle"></i>
-                  Help Center</a
-                >
-                <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="/logout">Log out</a>              </div>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/categoryView">
+                <i class="align-middle" data-feather="layers"></i>
+                <span class="align-middle">Category</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/user?page=1">
+                <i class="align-middle" data-feather="users"></i>
+                <span class="align-middle">Users</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orderStatus">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Order Status</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesReport">
+                <i class="align-middle" data-feather="package"></i>
+                <span class="align-middle">Sales Report</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupon">
+                <i class="align-middle" data-feather="command"></i>
+                <span class="align-middle">Coupons</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers">
+                <i class="align-middle" data-feather="command"></i>
+                <span class="align-middle">Offers</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/banner">
+                <i class="align-middle" data-feather="bookmark"></i>
+                <span class="align-middle">Banner</span>
+              </a>
             </li>
           </ul>
         </div>
       </nav>
 
-      <main class="content">
-        <h1>hi</h1>
-      </main>
-    </div>
-  </div>
+      <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+          <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+          </a>
+
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav navbar-align">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a
+                  class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="../images/login-images/avatar.jpg"
+                    class="avatar img-fluid rounded me-1"
+                    alt="Charles Hall"
+                  />
+                  <span class="text-dark">Admin</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="pages-profile.html"
+                    ><i class="align-middle me-1" data-feather="user"></i>
+                    Profile</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="align-middle me-1" data-feather="pie-chart"></i>
+                    Analytics</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="index.html"
+                    ><i class="align-middle me-1" data-feather="settings"></i>
+                    Settings & Privacy</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i
+                      class="align-middle me-1"
+                      data-feather="help-circle"
+                    ></i>
+                    Help Center</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content">  
+       <div class="container-fluid py-4">
+          <div class="row">
+              <div class="col-12">
+                  <div class="card mb-4">
+                      <div class="card-header d-flex flex-row justify-content-between pb-0">
+                          <h6>Banners</h6>
+                        
+                           
+                          <a href="/admin/add-banner" class="btn btn-success">Add Banner</a>
+                      </div>
+                      <div class="card-body px-0 pt-0 pb-2">
+                          <div class="table-responsive p-0">
+                              <table class="table table-hover align-items-center mb-0" id="banner-table">
+                                  <thead>
+                                      <tr>
+                                          <th
+                                              class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                              No</th>
+                                          <th
+                                              class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                              Banner Name</th>
+                                          <th
+                                              class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                              status</th>
+                                          <th class="text-secondary opacity-7"></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+
+                                      <% allBanners.forEach((banner, index)=> { %>
+                                          <tr>
+                                              <td class="text-center">
+                                                  <p class="text-xs font-weight-bold mb-0">
+                                                      <%= index + 1 %>
+                                                  </p>
+                                              </td>
+                                              <td>
+                                                  <div class="d-flex px-2 py-1">
+                                                      <div>
+                                                          <img src="/uploads/<%= banner.imgName[0] %>"
+                                                              class="avatar avatar-sm me-3"
+                                                              alt="/uploads/<%= banner.imgName[0] %>">
+                                                      </div>
+                                                      <div class="d-flex flex-column justify-content-center">
+                                                          <h6 class="mb-0 text-sm">
+                                                              <%= banner.name %>
+                                                          </h6>
+                                                      </div>
+                                                  </div>
+                                              </td>
+                                              <td class="align-middle text-center text-sm">
+                                                  <% if (banner.currentBanner) { %>
+                                                      <span
+                                                          class="badge badge-sm bg-gradient-success status" style="color: black;">Active</span>
+                                                      <% } else { %>
+                                                          <span class="badge badge-sm bg-gradient-warning status" style="color: black;">In
+                                                              Active</span>
+                                                          <% } %>
+                                              </td>
+                                              <td class="align-middle">
+                                                  <div class="d-flex justify-content-around align-items-center">
+
+                                                      <a href="/admin/edit-banner/<%= banner._id %>"
+                                                          class="text-info font-weight-bold text-sm pe-2">
+                                                          Edit
+                                                      </a>
+                                                      <% if (banner.currentBanner) { %>
+                                                          <a href="#" data-id="<%= banner._id %>"
+                                                              data-status="<%= banner.currentBanner %>"
+                                                              class="text-primary font-weight-bold text-sm pe-2 status-button"
+                                                              style="cursor: pointer;">
+                                                              Hide
+                                                          </a>
+                                                          <% } else { %>
+                                                              <a href="#" data-id="<%= banner._id %>"
+                                                                  data-status="<%= banner.currentBanner %>"
+                                                                  class="text-primary font-weight-bold text-sm pe-2 status-button"
+                                                                  style="cursor: pointer;">
+                                                                  Show
+                                                              </a>
+                                                              <% } %>
+                                                                  <!-- <a onclick="delBanner('<%= banner._id %>', '<%= index %>', this)"
+                                                                      class="text-danger font-weight-bold text-sm pe-2"
+                                                                      style="cursor: pointer;">
+                                                                      Delete
+                                                                  </a> -->
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                          <% }) %>
+
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+</main>
+</div>
+</div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+   console.log("dvjknijvn");
+              
+               const newBanner = JSON.parse('<%= bannerAdded %>' || null);
+               const updated = JSON.parse('<%= bannerUpdated %>' || null)
+               if (newBanner) {
+                   Swal.fire({
+                       title: "Success",
+                       text: 'New Banner Added',
+                       icon: 'success'
+                   })
+               }
+               if (updated) {
+                   Swal.fire({
+                       title: 'Updated',
+                       text: 'banner updated successfully!',
+                       icon: 'success'
+                   })
+               }
+           });
+
+           /* for change banner default status  */
+           $(document).on('click', '.status-button', (event) => {
+               event.preventDefault();
+               const btnElement = $(event.target);
+               const statusElement = $(event.target).closest('tr').find('.status')
+               const currStat = $(event.target).data('status');
+               const bannerId = $(event.target).data('id');
+
+               $.ajax({
+                   url: '/admin/banner/change-status',
+                   method: 'patch',
+                   data: { bannerId, currStat },
+                   success: function (response) {
+                       if (response.statusChanged) {
+                           if (response.newStatus) {
+                               statusElement
+                                   .removeClass()
+                                   .addClass('badge badge-sm bg-gradient-success status')
+                                   .html('Active');
+                               $(btnElement)
+                                   .data('status', response.newStatus)
+                                   .html('Hide')
+                           } else {
+                               statusElement
+                                   .removeClass()
+                                   .addClass('badge badge-sm bg-gradient-warning status')
+                                   .html('In Active');
+                               $(btnElement)
+                                   .data('status', response.newStatus)
+                                   .html('Show')
+                           }
+                       } else {
+                           Swal.fire({
+                               title: 'Banner Status not Changed',
+                               text: response.msg,
+                               icon: 'info'
+                           })
+                       }
+                   },
+                   error: (err) => {
+                       console.error(err);
+                   }
+               })
+
+           })
+</script>
+
+</html>
+
+
+

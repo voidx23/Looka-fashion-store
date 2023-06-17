@@ -3,6 +3,8 @@ const Product = require("../models/productSchema");
 const Cart = require("../models/shoppingCartSchema");
 const mongoose = require('mongoose');
 const Order = require("../models/orderSchema");
+const Coupon = require("../models/couponSchema");
+const Wallet = require('../models/walletSchema')
 const { render } = require("ejs");
 const Razorpay = require("razorpay");
 
@@ -26,9 +28,10 @@ var instance = new Razorpay({
 exports.deliveryAddressPost = async (req, res) => {
   let orders = req.body;
 
-  let cod = req.body['payment-method']
+  let cod = req.body['payment-method'];
 
-
+  let myCoupon = req.body.couponAmount;
+  myCoupon = myCoupon.replace("₹", "");
 
 
   let addressId = new mongoose.Types.ObjectId(req.body.address);
@@ -47,6 +50,8 @@ exports.deliveryAddressPost = async (req, res) => {
 
     let cart = await Cart.findOne({ userId: req.session.user._id });
     let userId = req.session.user._id;
+
+    console.log("")
 
 
 
@@ -99,7 +104,11 @@ exports.deliveryAddressPost = async (req, res) => {
     //console.log(cart,'nnnnnnnnnnnnnnnnnn')
     // Store the total value in a session variable
     // req.session.total = total[0].total;
+    // var matchCouponId = await Coupon.findOne({
+    //   couponCode: req.body.couponId,
 
+    // });
+    // let discountAmount = matchCouponId.discount;
 
     let status = req.body['payment-method'] === 'COD' ? 'pending' : 'pending'
 
@@ -123,6 +132,7 @@ exports.deliveryAddressPost = async (req, res) => {
       totalAmount: total[0].totalWithTax,
       paymentstatus: status,
       deliverystatus: 'not shipped',
+      discount: myCoupon,
       createdAt: new Date()
 
     });
@@ -131,77 +141,114 @@ exports.deliveryAddressPost = async (req, res) => {
     console.log(orderDoc, "💕💕💕");
     let orderId = orderDoc._id
     let orderIdString = orderId.toString();
+    const wallet = await Wallet.findOne({ userId })
+    let balance = wallet.balance;
+
+
     // Find and delete the cart items for the user
     await Cart.findOneAndDelete({ userId: cart.userId });
     if (req.body['payment-method'] == 'COD') {
       // await Cart.findOneAndDelete({ userId: cart.userId });
       res.json({ codSuccess: true })
     } else if (req.body['payment-method'] == 'RazorPay') {
-      var options = {
-        amount: orderDoc.totalAmount * 100,  // amount in the smallest currency unit
-        currency: "INR",
-        receipt: orderIdString
-      };
+
+      if (myCoupon) {
+
+        var options = {
+          amount: (orderDoc.totalAmount - myCoupon) * 100,  // amount in the smallest currency unit
+          currency: "INR",
+          receipt: orderIdString
+        };
+      } else {
+
+        var options = {
+          amount: orderDoc.totalAmount * 100,  // amount in the smallest currency unit
+          currency: "INR",
+          receipt: orderIdString
+        };
+
+      }
 
       console.log(options.amount, "👌👌👌")
       instance.orders.create(options, function (err, order) {
+        console.log("before res");
         res.json(order)
       });
 
 
-    } else if (req.body['payment-method'] == 'PayPal') {
+    } else if (req.body['payment-method'] == 'Wallet') {
 
-      let amount = Math.floor(orderDoc.totalAmount / 75);
-      amount = new String(amount)
-      const create_payment_json = {
-        intent: 'sale',
-        payer: {
-          payment_method: 'paypal'
-        },
-        redirect_urls: {
-          return_url: `http://localhost:3001/paymentsuccess/?objId=${orderId}`,
-          cancel_url: `http://localhost:3001/paypal-cancel/?objId=${orderId}`
-        },
-        transactions: [{
-          item_list: {
-            items: [{
-              name: 'item',
-              sku: 'item',
-              price: amount,
-              currency: 'USD',
-              quantity: 1
-            }]
-          },
-          amount: {
-            currency: 'USD',
-            total: amount
-          },
-          description: 'This is the payment description.'
-        }]
-      };
+      if (orderDoc.totalAmount <= balance) {
 
-      paypal.payment.create(create_payment_json, function (error, payment) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Create Payment Response');
-          console.log(payment);
-          console.log(payment.links[1].href, 'link')
-          console.log(payment.links, "payment link")
-          console.log(payment.links[1], "payment link[1]")
-          // Check that payment.links[1] exists
-          if (payment.links && payment.links[1]) {
-            // Redirect the user to the PayPal checkout page
-            res.json({ payment });
-          } else {
-            console.log('Payment response missing redirect URL');
-            res.status(500).send('Unable to process payment');
-          }
-        }
+        balance -= orderDoc.totalAmount;
 
-      });
+        wallet.balance = balance;
+
+        await wallet.save();
+
+        res.json({ walletSuccess: true });
+      } else {
+
+        res.json({ emptyWallet: true });
+
+      }
+
+
 
     }
+    // else if (req.body['payment-method'] == 'PayPal') {
+
+    //   let amount = Math.floor(orderDoc.totalAmount / 75);
+    //   amount = new String(amount)
+    //   const create_payment_json = {
+    //     intent: 'sale',
+    //     payer: {
+    //       payment_method: 'paypal'
+    //     },
+    //     redirect_urls: {
+    //       return_url: `http://localhost:3001/paymentsuccess/?objId=${orderId}`,
+    //       cancel_url: `http://localhost:3001/paypal-cancel/?objId=${orderId}`
+    //     },
+    //     transactions: [{
+    //       item_list: {
+    //         items: [{
+    //           name: 'item',
+    //           sku: 'item',
+    //           price: amount,
+    //           currency: 'USD',
+    //           quantity: 1
+    //         }]
+    //       },
+    //       amount: {
+    //         currency: 'USD',
+    //         total: amount
+    //       },
+    //       description: 'This is the payment description.'
+    //     }]
+    //   };
+
+    //   paypal.payment.create(create_payment_json, function (error, payment) {
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log('Create Payment Response');
+    //       console.log(payment);
+    //       console.log(payment.links[1].href, 'link')
+    //       console.log(payment.links, "payment link")
+    //       console.log(payment.links[1], "payment link[1]")
+    //       // Check that payment.links[1] exists
+    //       if (payment.links && payment.links[1]) {
+    //         // Redirect the user to the PayPal checkout page
+    //         res.json({ payment });
+    //       } else {
+    //         console.log('Payment response missing redirect URL');
+    //         res.status(500).send('Unable to process payment');
+    //       }
+    //     }
+
+    //   });
+
+    // }
   } catch (error) {
     console.log(error);
   }

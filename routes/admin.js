@@ -1,12 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const adminController = require('../controllers/adminController')
+const adminController = require('../controllers/adminController');
 const { adminAuth, verify } = require('../controllers/adminMiddlewares');// middleware seperated from router file.
-const userController = require('../controllers/userController')
-const productController = require('../controllers/productController')
-const categoryController = require('../controllers/categoryController')
-const orderController = require('../controllers/orderController')
+const userController = require('../controllers/userController');
+const productController = require('../controllers/productController');
+const categoryController = require('../controllers/categoryController');
+const orderController = require('../controllers/orderController');
 const product = require('../models/productSchema');
+const offerController = require('../controllers/offerController');
+const couponController = require('../controllers/couponController');
+const bannerController = require('../controllers/bannerController')
 
 
 
@@ -15,28 +18,13 @@ const product = require('../models/productSchema');
 
 
 
-router.get('/banner', function (req, res) {
-  res.render('admin/banner', { admin: true })
-});
 
-// router.get('/categoryView',function(req,res){
-//   res.render('admin/categoryView',{admin:true,})
-// });
 
-router.get('/addCategory', function (req, res) {
-  res.render('admin/category', { admin: true, })
-});
 
 router.get('/coupons', function (req, res) {
   res.render('admin/coupons', { admin: true })
 });
-// router.get('/orderStatus',function(req,res){
-//   res.render('admin/orderStatus',{admin:true})
-// });
 
-// router.get('/products',function(req,res){
-//   res.render('admin/products',{admin:true,products})
-// });
 router.get('/', adminAuth, function (req, res) {
   res.render('admin/admin-login', { admin: true })
 });
@@ -45,19 +33,15 @@ router.get('/admin-signup', adminAuth, function (req, res) {
   res.render('admin/admin-signup', { admin: true })
 });
 
-// router.get('/addProduct',function(req,res){
-//   res.render('admin/addProduct',{admin:true})
-// })
-
-// router.get('/categoryView',function(req,res){
-//   res.render('admin/categoryView',{admin:true,})
-// });
 
 
 // product routes
 router.get('/products', productController.getAllProducts)
 router.get('/addProduct', productController.addProductPage)
 router.get('/editProduct/:id', productController.getEditProductPage)
+router.post('/editProduct/:id', productController.editProduct)
+router.post('/addProduct', productController.postProduct)
+router.delete('/deleteProduct/:id', productController.deleteProduct)
 
 router.get('/salesReport', verify, adminController.salesReport)
 router.post('/Sales-report', adminController.getSalesReport)
@@ -72,28 +56,40 @@ router.post('/editProduct/:id', productController.editProduct)
 router.post('/addProduct', productController.postProduct)
 router.delete('/deleteProduct/:id', productController.deleteProduct)
 
-// category routes
+// category managment routes
 router.get('/categoryView', categoryController.getAllCategories)
 router.post('/addcategory', categoryController.postAddCategory)
-//category block and unblock routes
 router.get('/categoryBlock/:id', categoryController.blockCategory);
 router.get('/categoryUnblock/:id', categoryController.unBlockCategory);
-//category edit
-
 router.get('/editCategory/:id', categoryController.getEditCategoryPage)
 router.post('/editCategory/:id', categoryController.editCategory)
 
+//offer management routes
+router.get("/offers", verify, offerController.offer)
+router.post("/offers", verify, offerController.postoffer)
+
+router.get('/coupon', couponController.couponPage)
+router.post('/coupon', couponController.postCoupon)
+router.patch('/coupon-disable/:id', couponController.disableCoupon)
+router.patch('/coupon-enable/:id', couponController.enableCoupon)
+router.get('/edit-coupon', couponController.editCoupon)
+router.post('/update-coupon', couponController.updateCoupon)
+
+/* Banners */
+router.get('/banner', verify, bannerController.getBanner)
+router.get('/add-banner', verify, bannerController.getBannerForm)
+router.get('/edit-banner/:id', verify, bannerController.getEditBanner)
+router.post('/add-banner', verify, bannerController.addBanner)
+router.post('/edit-banner', verify, bannerController.postEditBanner)
+router.patch('/banner/change-status', verify, bannerController.patchBannerStatus)
+router.delete('/delete-banner', verify, bannerController.deleteBanner)
 
 
 
 
 
 
-
-
-
-
-
+//signup and login setups.
 router.post('/admin-login', adminAuth, adminController.postLogin)
 router.post('/admin-signup', adminAuth, adminController.postSignup)
 
